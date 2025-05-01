@@ -2,10 +2,10 @@ import { Product } from './Product.ts';
 import { Restaurant } from './Restaurant';
 
 export interface Menu {
-    id:number;
+    id: string;
     price:number;
-    availability: boolean;
-    restaurant_id: Restaurant;
-    products_id: Product[];
+    availability:number;
+    restaurant: Restaurant;
+    products: Product[];
 }
 
