@@ -7,7 +7,7 @@ interface ListProps {
     acciones: { nombre: string; etiqueta: string ;icon:any}[];
     onAccion: (accion: string,item:any) => void;
 }
-var hola=""
+
 const List: React.FC<ListProps> = ({ datos, columnas, acciones, onAccion }) => {
 
     return (
