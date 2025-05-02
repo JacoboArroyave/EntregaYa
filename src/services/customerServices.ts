@@ -1,12 +1,12 @@
-import { Photo } from "../models/Photo";
+import { Customer } from "../models/Customer";
 
-const API_URL = import.meta.env.VITE_API_URL3+"/photo"||"";
+const API_URL = import.meta.env.VITE_API_URL3 + "/customer" || "";
 
-// Get all photos
-export const getPhotos = async (): Promise<Photo[]> => {
+// Get all customers
+export const getCustomers = async (): Promise<Customer[]> => {
     try {
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Error al obtener photos");
+        if (!response.ok) throw new Error("Error al obtener customers");
         return await response.json();
     } catch (error) {
         console.error(error);
@@ -14,11 +14,11 @@ export const getPhotos = async (): Promise<Photo[]> => {
     }
 };
 
-// Get photo by ID
-export const getPhotoById = async (id: string): Promise<Photo | null> => {
+// Get customer by ID
+export const getCustomerById = async (id: string): Promise<Customer | null> => {
     try {
         const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) throw new Error("photo no encontrado");
+        if (!response.ok) throw new Error("Customer no encontrado");
         return await response.json();
     } catch (error) {
         console.error(error);
@@ -26,15 +26,15 @@ export const getPhotoById = async (id: string): Promise<Photo | null> => {
     }
 };
 
-// Create new photo
-export const createPhoto = async (Photo: Omit<Photo, "id">): Promise<Photo | null> => {
+// Create new customer
+export const createCustomer = async (customer: Omit<Customer, "id">): Promise<Customer | null> => {
     try {
         const response = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(Photo),
+            body: JSON.stringify(customer),
         });
-        if (!response.ok) throw new Error("Error al crear photo");
+        if (!response.ok) throw new Error("Error al crear customer");
         return await response.json();
     } catch (error) {
         console.error(error);
@@ -42,15 +42,15 @@ export const createPhoto = async (Photo: Omit<Photo, "id">): Promise<Photo | nul
     }
 };
 
-// Update photo
-export const updatePhoto = async (id: string, photo: Partial<Photo>): Promise<Photo | null> => {
+// Update customer
+export const updateCustomer = async (id: string, customer: Partial<Customer>): Promise<Customer | null> => {
     try {
         const response = await fetch(`${API_URL}/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(photo),
+            body: JSON.stringify(customer),
         });
-        if (!response.ok) throw new Error("Error al actualizar photo");
+        if (!response.ok) throw new Error("Error al actualizar customer");
         return await response.json();
     } catch (error) {
         console.error(error);
@@ -58,11 +58,11 @@ export const updatePhoto = async (id: string, photo: Partial<Photo>): Promise<Ph
     }
 };
 
-// Delete photo
-export const deletePhoto = async (id: string): Promise<boolean> => {
+// Delete customer
+export const deleteCustomer = async (id: string): Promise<boolean> => {
     try {
         const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        if (!response.ok) throw new Error("Error al eliminar photoo");
+        if (!response.ok) throw new Error("Error al eliminar customer");
         return true;
     } catch (error) {
         console.error(error);
