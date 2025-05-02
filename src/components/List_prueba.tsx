@@ -9,7 +9,7 @@ interface ListProps {
     onAccion: (accion: string,item:any) => void;
 }
 
-const List: React.FC<ListProps> = ({titulo, datos, columnas, acciones, onAccion }) => {
+const List: React.FC<ListProps> = ({ titulo,datos, columnas, acciones, onAccion }) => {
 
     return (
         <div className="grid grid-cols-1 gap-9">
