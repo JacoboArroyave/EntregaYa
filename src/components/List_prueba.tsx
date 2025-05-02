@@ -2,13 +2,14 @@ import { LucideProps } from "lucide-react";
 import React from "react";
 
 interface ListProps {
+    titulo: string,
     datos: any[];
     columnas: {name:string,type:string}[];
     acciones: { nombre: string; etiqueta: string ;icon:any}[];
     onAccion: (accion: string,item:any) => void;
 }
-var hola=""
-const List: React.FC<ListProps> = ({ datos, columnas, acciones, onAccion }) => {
+
+const List: React.FC<ListProps> = ({titulo, datos, columnas, acciones, onAccion }) => {
 
     return (
         <div className="grid grid-cols-1 gap-9">
@@ -17,7 +18,7 @@ const List: React.FC<ListProps> = ({ datos, columnas, acciones, onAccion }) => {
                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                     <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                         <h3 className="font-medium text-black dark:text-white">
-                            Listado
+                            {titulo}
                         </h3>
                     </div>
                     <div className="flex flex-col gap-5.5 p-6.5">
