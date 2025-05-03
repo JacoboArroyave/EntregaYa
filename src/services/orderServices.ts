@@ -1,6 +1,6 @@
 import { Order } from "../models/Order";
 
-const API_URL = import.meta.env.VITE_API_URL3 + "/order" || "";
+const API_URL = "http://127.0.0.1:5000/orders";
 
 // Get all orders
 export const getOrders = async (): Promise<Order[]> => {
