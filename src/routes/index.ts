@@ -1,6 +1,5 @@
 import { lazy } from "react";
 
-// Lazy load components with correct paths
 const ListRestaurant = lazy(() => import('../pages/RestaurantList'));
 const ListDriver = lazy(() => import('../pages/DriverList'));
 const ListMenu = lazy(() => import('../pages/MenuList'));
