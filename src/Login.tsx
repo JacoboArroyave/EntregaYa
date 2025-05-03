@@ -17,6 +17,7 @@ const Login = () => {
         const decoded = jwtDecode(savedToken);
         setUser(decoded);
         console.log('Token recuperado:', savedToken);
+        console.log('Usuario recuperado:', decoded);
       } catch (err) {
         console.error('Error al decodificar el token', err);
         handleLogout(); // Si hay un error con el token, cerramos sesión
