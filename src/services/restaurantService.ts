@@ -1,6 +1,6 @@
 import { Restaurant } from "../models/Restaurant";
 
-const API_URL = import.meta.env.VITE_API_URL3+"/restaurants"||"";
+const API_URL = "http://127.0.0.1:5000/restaurants";
 
 // Get all restaurants
 export const getRestaurants = async (): Promise<Restaurant[]> => {
