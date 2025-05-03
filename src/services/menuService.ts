@@ -1,6 +1,6 @@
 import { Menu } from "../models/Menu";
 
-const API_URL = import.meta.env.VITE_API_URL3+"/menus"||"";
+const API_URL = "http://127.0.0.1:5000/menus"; // Ajusta el puerto si es diferente
 
 // Get all menus
 export const getMenus = async (): Promise<Menu[]> => {

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // import { Component, lazy } from "react";
 const coreRoutes = [{
     // path:"/",
@@ -6,7 +5,6 @@ const coreRoutes = [{
     // Component Cualquier componente
 }]
 export  default coreRoutes;
-=======
 /*import { lazy } from 'react';
 
 // Restaurant
@@ -312,4 +310,3 @@ const routes = [...coreRoutes];
 export default routes;
 
 */
->>>>>>> 9829f53 (Update Files)

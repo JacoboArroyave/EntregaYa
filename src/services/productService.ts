@@ -1,6 +1,6 @@
 import { Product } from "../models/Product";
 
-const API_URL = import.meta.env.VITE_API_URL3+"/products"||"";
+const API_URL = "http://127.0.0.1:5000/products"; // Aj
 
 // Get all products
 export const getProducts = async (): Promise<Product[]> => {
