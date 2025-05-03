@@ -3,7 +3,7 @@
 // import { useState } from 'react';
 // import reactLogo from './assets/react.svg';
 // import viteLogo from '/vite.svg';
-import './App.css';
+import './styles/App.css';
 import DriverList from "./pages/DriverList";
 import MotorcycleList from "./pages/MotorcycleList";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';

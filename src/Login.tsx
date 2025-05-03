@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
-import './Login.css'; // Importamos el archivo CSS
+import './styles/Login.css'; // Importamos el archivo CSS
 
 const Login = () => {
   const [user, setUser] = useState<any>(null);
