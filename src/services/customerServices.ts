@@ -1,71 +1,59 @@
 import { Customer } from "../models/Customer";
+import api from "../interceptors/axiosInterceptor";
 
-const API_URL = import.meta.env.VITE_API_URL3 + "/customer" || "";
+const API_URL = import.meta.env.VITE_API_URL + "/customers";
 
-// Get all customers
+// Obtener todos los clientes
 export const getCustomers = async (): Promise<Customer[]> => {
     try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Error al obtener customers");
-        return await response.json();
+        const response = await api.get(API_URL);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener todos los clientes:", error);
         return [];
     }
 };
 
-// Get customer by ID
+// Obtener un cliente por ID
 export const getCustomerById = async (id: string): Promise<Customer | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) throw new Error("Customer no encontrado");
-        return await response.json();
+        const response = await api.get(`${API_URL}/${id}`);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener el cliente por ID:", error);
         return null;
     }
 };
 
-// Create new customer
+// Crear un nuevo cliente
 export const createCustomer = async (customer: Omit<Customer, "id">): Promise<Customer | null> => {
     try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(customer),
-        });
-        if (!response.ok) throw new Error("Error al crear customer");
-        return await response.json();
+        const response = await api.post(API_URL, customer);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al crear el cliente:", error);
         return null;
     }
 };
 
-// Update customer
-export const updateCustomer = async (id: string, customer: Partial<Customer>): Promise<Customer | null> => {
+// Actualizar un cliente
+export const updateCustomer = async (id: string, customer: Partial<Omit<Customer, "id">>): Promise<Customer | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(customer),
-        });
-        if (!response.ok) throw new Error("Error al actualizar customer");
-        return await response.json();
+        const response = await api.put(`${API_URL}/${id}`, customer);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al actualizar el cliente:", error);
         return null;
     }
 };
 
-// Delete customer
+// Eliminar un cliente
 export const deleteCustomer = async (id: string): Promise<boolean> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        if (!response.ok) throw new Error("Error al eliminar customer");
+        await api.delete(`${API_URL}/${id}`);
         return true;
     } catch (error) {
-        console.error(error);
+        console.error("Error al eliminar el cliente:", error);
         return false;
     }
 };

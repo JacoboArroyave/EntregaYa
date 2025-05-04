@@ -1,71 +1,59 @@
 import { Photo } from "../models/Photo";
+import api from "../interceptors/axiosInterceptor";
 
-const API_URL = import.meta.env.VITE_API_URL3+"/photo"||"";
+const ENDPOINT = "/photos";
 
-// Get all photos
+// Obtener todas las fotos
 export const getPhotos = async (): Promise<Photo[]> => {
     try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Error al obtener photos");
-        return await response.json();
+        const response = await api.get(ENDPOINT);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener todas las fotos:", error);
         return [];
     }
 };
 
-// Get photo by ID
+// Obtener una foto por ID
 export const getPhotoById = async (id: string): Promise<Photo | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) throw new Error("photo no encontrado");
-        return await response.json();
+        const response = await api.get(`${ENDPOINT}/${id}`);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener la foto por ID:", error);
         return null;
     }
 };
 
-// Create new photo
-export const createPhoto = async (Photo: Omit<Photo, "id">): Promise<Photo | null> => {
+// Crear una nueva foto
+export const createPhoto = async (photo: Omit<Photo, "id">): Promise<Photo | null> => {
     try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(Photo),
-        });
-        if (!response.ok) throw new Error("Error al crear photo");
-        return await response.json();
+        const response = await api.post(ENDPOINT, photo);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al crear la foto:", error);
         return null;
     }
 };
 
-// Update photo
+// Actualizar una foto
 export const updatePhoto = async (id: string, photo: Partial<Photo>): Promise<Photo | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(photo),
-        });
-        if (!response.ok) throw new Error("Error al actualizar photo");
-        return await response.json();
+        const response = await api.put(`${ENDPOINT}/${id}`, photo);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al actualizar la foto:", error);
         return null;
     }
 };
 
-// Delete photo
+// Eliminar una foto
 export const deletePhoto = async (id: string): Promise<boolean> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        if (!response.ok) throw new Error("Error al eliminar photoo");
+        await api.delete(`${ENDPOINT}/${id}`);
         return true;
     } catch (error) {
-        console.error(error);
+        console.error("Error al eliminar la foto:", error);
         return false;
     }
 };

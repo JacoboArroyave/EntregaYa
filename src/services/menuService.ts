@@ -1,71 +1,59 @@
 import { Menu } from "../models/Menu";
+import api from "../interceptors/axiosInterceptor";
 
-const API_URL = import.meta.env.VITE_API_URL3+"/menus"||"";
+const API_URL = import.meta.env.VITE_API_URL + "/menus";
 
-// Get all menus
+// Obtener todos los menús
 export const getMenus = async (): Promise<Menu[]> => {
     try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Error al obtener menús");
-        return await response.json();
+        const response = await api.get(API_URL);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener todos los menús:", error);
         return [];
     }
 };
 
-// Get menu by ID
+// Obtener un menú por ID
 export const getMenuById = async (id: number): Promise<Menu | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) throw new Error("Menú no encontrado");
-        return await response.json();
+        const response = await api.get(`${API_URL}/${id}`);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener el menú por ID:", error);
         return null;
     }
 };
 
-// Create new menu
+// Crear un nuevo menú
 export const createMenu = async (menu: Omit<Menu, "id">): Promise<Menu | null> => {
     try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(menu),
-        });
-        if (!response.ok) throw new Error("Error al crear menú");
-        return await response.json();
+        const response = await api.post(API_URL, menu);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al crear el menú:", error);
         return null;
     }
 };
 
-// Update menu
-export const updateMenu = async (id: number, menu: Partial<Menu>): Promise<Menu | null> => {
+// Actualizar un menú
+export const updateMenu = async (id: number, menu: Partial<Omit<Menu, "id">>): Promise<Menu | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(menu),
-        });
-        if (!response.ok) throw new Error("Error al actualizar menú");
-        return await response.json();
+        const response = await api.put(`${API_URL}/${id}`, menu);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al actualizar el menú:", error);
         return null;
     }
 };
 
-// Delete menu
+// Eliminar un menú
 export const deleteMenu = async (id: number): Promise<boolean> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        if (!response.ok) throw new Error("Error al eliminar menú");
+        await api.delete(`${API_URL}/${id}`);
         return true;
     } catch (error) {
-        console.error(error);
+        console.error("Error al eliminar el menú:", error);
         return false;
     }
 };
