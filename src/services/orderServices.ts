@@ -1,71 +1,59 @@
 import { Order } from "../models/Order";
+import api from "../interceptors/axiosInterceptor";
 
-const API_URL = "http://127.0.0.1:5000/orders";
+const API_URL = import.meta.env.VITE_API_URL + "/orders";
 
-// Get all orders
+// Obtener todas las órdenes
 export const getOrders = async (): Promise<Order[]> => {
     try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Error al obtener orders");
-        return await response.json();
+        const response = await api.get(API_URL);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener todas las órdenes:", error);
         return [];
     }
 };
 
-// Get order by ID
+// Obtener una orden por ID
 export const getOrderById = async (id: string): Promise<Order | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) throw new Error("Order no encontrado");
-        return await response.json();
+        const response = await api.get(`${API_URL}/${id}`);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener la orden por ID:", error);
         return null;
     }
 };
 
-// Create new order
+// Crear una nueva orden
 export const createOrder = async (order: Omit<Order, "id">): Promise<Order | null> => {
     try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(order),
-        });
-        if (!response.ok) throw new Error("Error al crear order");
-        return await response.json();
+        const response = await api.post(API_URL, order);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al crear la orden:", error);
         return null;
     }
 };
 
-// Update order
+// Actualizar una orden
 export const updateOrder = async (id: string, order: Partial<Order>): Promise<Order | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(order),
-        });
-        if (!response.ok) throw new Error("Error al actualizar order");
-        return await response.json();
+        const response = await api.put(`${API_URL}/${id}`, order);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al actualizar la orden:", error);
         return null;
     }
 };
 
-// Delete order
+// Eliminar una orden
 export const deleteOrder = async (id: string): Promise<boolean> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        if (!response.ok) throw new Error("Error al eliminar order");
+        await api.delete(`${API_URL}/${id}`);
         return true;
     } catch (error) {
-        console.error(error);
+        console.error("Error al eliminar la orden:", error);
         return false;
     }
 };

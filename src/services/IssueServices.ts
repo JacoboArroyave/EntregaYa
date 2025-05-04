@@ -1,71 +1,59 @@
 import { Issue } from "../models/Issue";
+import api from "../interceptors/axiosInterceptor";
 
-const API_URL = "http://127.0.0.1:5000//issues";
+const API_URL = import.meta.env.VITE_API_URL + "/issues";
 
-// Get all issues
+// Obtener todos los problemas
 export const getIssues = async (): Promise<Issue[]> => {
     try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Error al obtener issues");
-        return await response.json();
+        const response = await api.get(API_URL);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener todos los problemas:", error);
         return [];
     }
 };
 
-// Get issue by ID
+// Obtener un problema por ID
 export const getIssueById = async (id: string): Promise<Issue | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) throw new Error("Issue no encontrado");
-        return await response.json();
+        const response = await api.get(`${API_URL}/${id}`);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener el problema por ID:", error);
         return null;
     }
 };
 
-// Create new issue
+// Crear un nuevo problema
 export const createIssue = async (issue: Omit<Issue, "id">): Promise<Issue | null> => {
     try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(issue),
-        });
-        if (!response.ok) throw new Error("Error al crear issue");
-        return await response.json();
+        const response = await api.post(API_URL, issue);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al crear el problema:", error);
         return null;
     }
 };
 
-// Update issue
-export const updateIssue = async (id: string, issue: Partial<Issue>): Promise<Issue | null> => {
+// Actualizar un problema
+export const updateIssue = async (id: string, issue: Partial<Omit<Issue, "id">>): Promise<Issue | null> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(issue),
-        });
-        if (!response.ok) throw new Error("Error al actualizar issue");
-        return await response.json();
+        const response = await api.put(`${API_URL}/${id}`, issue);
+        return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error al actualizar el problema:", error);
         return null;
     }
 };
 
-// Delete issue
+// Eliminar un problema
 export const deleteIssue = async (id: string): Promise<boolean> => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        if (!response.ok) throw new Error("Error al eliminar issue");
+        await api.delete(`${API_URL}/${id}`);
         return true;
     } catch (error) {
-        console.error(error);
+        console.error("Error al eliminar el problema:", error);
         return false;
     }
 };
