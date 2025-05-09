@@ -1,78 +1,59 @@
 import { Shift } from "../models/Shift";
+import api from "../interceptors/axiosInterceptor";
 
-const API_URL = "http://127.0.0.1:5000/shifts";
+const API_URL = import.meta.env.VITE_API_URL + "/shifts";
 
 // Obtener todos los turnos
 export const getShifts = async (): Promise<Shift[]> => {
-  try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error("Error al obtener turnos");
-    return await response.json();
-  } catch (error) {
-    console.error("getShifts error:", error);
-    return [];
-  }
+    try {
+        const response = await api.get(API_URL);
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener todos los turnos:", error);
+        return [];
+    }
 };
 
 // Obtener un turno por ID
 export const getShiftById = async (id: number): Promise<Shift | null> => {
-  try {
-    const response = await fetch(`${API_URL}/${id}`);
-    if (!response.ok) throw new Error("Turno no encontrado");
-    return await response.json();
-  } catch (error) {
-    console.error("getShiftById error:", error);
-    return null;
-  }
+    try {
+        const response = await api.get(`${API_URL}/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener el turno por ID:", error);
+        return null;
+    }
 };
 
 // Crear un nuevo turno
-export const createShift = async (
-  shift: Omit<Shift, "id">
-): Promise<Shift | null> => {
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(shift),
-    });
-    if (!response.ok) throw new Error("Error al crear turno");
-    return await response.json();
-  } catch (error) {
-    console.error("createShift error:", error);
-    return null;
-  }
+export const createShift = async (shift: Omit<Shift, "id">): Promise<Shift | null> => {
+    try {
+        const response = await api.post(API_URL, shift);
+        return response.data;
+    } catch (error) {
+        console.error("Error al crear turno:", error);
+        return null;
+    }
 };
 
 // Actualizar un turno existente
-export const updateShift = async (
-  id: number,
-  shift: Partial<Omit<Shift, "id">>
-): Promise<Shift | null> => {
-  try {
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(shift),
-    });
-    if (!response.ok) throw new Error("Error al actualizar turno");
-    return await response.json();
-  } catch (error) {
-    console.error("updateShift error:", error);
-    return null;
-  }
+export const updateShift = async (id: number, shift: Partial<Shift>): Promise<Shift | null> => {
+    try {
+        const response = await api.put(`${API_URL}/${id}`, shift);
+        return response.data;
+    } catch (error) {
+        console.error("Error al actualizar turno:", error);
+        return null;
+    }
 };
 
 // Eliminar un turno
 export const deleteShift = async (id: number): Promise<boolean> => {
-  try {
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: "DELETE",
-    });
-    if (!response.ok) throw new Error("Error al eliminar turno");
-    return true;
-  } catch (error) {
-    console.error("deleteShift error:", error);
-    return false;
-  }
+    try {
+        await api.delete(`${API_URL}/${id}`);
+        return true;
+    } catch (error) {
+        console.error("Error al eliminar turno:", error);
+        return false;
+    }
 };
