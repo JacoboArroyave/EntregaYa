@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List_prueba";
+import List from "../components/List";
 import { getRestaurants } from "../services/restaurantService";
 import { Restaurant } from "../models/Restaurant";
 import { Edit, Trash2 } from "lucide-react";
@@ -41,7 +41,6 @@ const RestaurantList: React.FC = () => {
 
   return (
     <List
-      titulo={titulo}
       datos={restaurants}
       columnas={columnas}
       acciones={acciones}

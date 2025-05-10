@@ -4,46 +4,45 @@
 // import reactLogo from './assets/react.svg';
 // import viteLogo from '/vite.svg';
 import './styles/App.css';
-import DriverList from "./pages/DriverList";
-import MotorcycleList from "./pages/MotorcycleList";
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import ProductList from './pages/ProductList';
-import RestaurantList from './pages/RestaurantList';
-import MenuList from './pages/MenuList';
+import routes from './routes/index';
+import Login from './Login';
+import ProtectedRoute from './Auth/ProtectedRoute';
+import { Suspense } from 'react';
+import Loader from './common/Loader';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import DriverList from './pages/DriverList';
 
 function App() {
   // const [count, setCount] = useState(0);
 
+
   return (
-    <Router>
 
-      <div>
-        <DriverList />
-      </div>
-      <div>
-        <MotorcycleList />
-      </div>
-      <div>
-        <ProductList />
-      </div>
-      <div>
-        <RestaurantList />
-      </div>
-      <div>
-        <MenuList />
-      </div>
-      {/* Ejemplo con boton */}
-      {/* <div>
-        <Link to="/drivers">
-          <button>Ir a la lista de drivers</button>
-        </Link>
-      </div>
+    <Routes>
 
-      <Routes>
-        <Route path="/drivers" element={<DriverList />} />
-      </Routes> */}
-    </Router>
+      <Route path="/login" element={<Login />} />
+
+      
+      <Route element={<ProtectedRoute />}>
+        {routes.map((routes, index) => {
+          const { path, component: Component } = routes;
+          return (
+            <Route
+              key={index}
+              path={path}
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Component />
+                </Suspense>
+              }
+            />
+          );
+        })}
+      </Route>
+    </Routes>
+
   );
 }
 

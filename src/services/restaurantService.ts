@@ -7,6 +7,9 @@ const API_URL = import.meta.env.VITE_API_URL + "/restaurants";
 export const getRestaurants = async (): Promise<Restaurant[]> => {
     try {
         const response = await api.get(API_URL);
+        console.log(response);
+        // Almacenar los restaurantes en el localStorage
+        
         return response.data;
     } catch (error) {
         console.error("Error al obtener restaurantes:", error);
