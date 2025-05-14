@@ -31,6 +31,8 @@ export const getRestaurantById = async (id: string): Promise<Restaurant | null> 
 // Crear un nuevo restaurante
 export const createRestaurant = async (restaurant: Omit<Restaurant, "id">): Promise<Restaurant | null> => {
     try {
+        console.log("camiii");
+        
         const response = await api.post(API_URL, restaurant);
         return response.data;
     } catch (error) {
