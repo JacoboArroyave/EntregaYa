@@ -8,11 +8,14 @@ import './styles/App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import routes from './routes/index';
 import Login from './Login';
+import Layout from './layout/DefaultLayout';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import { Suspense } from 'react';
 import Loader from './common/Loader';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import DriverList from './pages/DriverList';
+
+// Pagina de garficas 
+import DashChart from './pages/DashChart';
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -23,6 +26,10 @@ function App() {
     <Routes>
 
       <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Layout/>} />
+      {/* <Route path="/" element={<DashChart/>} /> */}
+      {/* <Route path="/" element={<Circular} /> */}
+
 
       
       <Route element={<ProtectedRoute />}>
