@@ -14,7 +14,7 @@ const App = () => {
     const validationschemaProps = () => {
         return Yup.object({
             name: Yup.string().required("El nombre es obligatorio"),
-            adress: Yup.string().required("La direccion es obligatoria"),
+            address: Yup.string().required("La direccion es obligatoria"),
             phone: Yup.string()
                 .matches(/^\d{10}$/, "El teléfono debe tener 10 dígitos")
                 .required("El teléfono es obligatorio"),
@@ -35,6 +35,8 @@ const App = () => {
                 console.log("Restaurante creado con éxito:", createdRestaurant);
                 navigate("/list-restaurant");
             } else {
+                console.log("hello");
+                
                 Swal.fire({
                     title: "Error",
                     text: "Existe un problema al momento de crear el registro",
@@ -43,9 +45,11 @@ const App = () => {
                 })
             }
         } catch (error) {
+            console.log(error);
+            
             Swal.fire({
                 title: "Error",
-                text: "Existe un problema al momento de crear el registro",
+                text: "Error al crear el restaurante",
                 icon: "error",
                 timer: 3000
             })

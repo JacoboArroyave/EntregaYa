@@ -6,6 +6,6 @@ export interface Menu {
     price:number;
     availability:number;
     restaurant: Restaurant;
-    products: Product[];
+    product: Product;
 }
 

@@ -13,6 +13,19 @@ export const getMenus = async (): Promise<Menu[]> => {
         return [];
     }
 };
+export const getMenusByIdRestaurant = async (id:string): Promise<Menu[]> => {
+    try {
+        
+        const response = await api.get(`http://127.0.0.1:5000/restaurants/${id}/menus`);
+        console.log(response);
+        
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener todos los menús:", error);
+        return [];
+    }
+};
+
 
 // Obtener un menú por ID
 export const getMenuById = async (id: number): Promise<Menu | null> => {

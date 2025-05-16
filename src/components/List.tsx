@@ -21,27 +21,30 @@ const List: React.FC<ListProps> = ({
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const [activeTooltip, setActiveTooltip] = useState<{index: number, action: string} | null>(null);
 
-  // Food-themed colors
-  const headerGradient = "bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500";
+  // Mejorado: Gradiente más vibrante para el encabezado
+  const headerGradient = "bg-gradient-to-r from-red-500 via-orange-500 to-yellow-400";
   
   return (
-    <div className="rounded-2xl bg-white shadow-xl overflow-hidden border-0 relative">
-      {/* Food-themed decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400"></div>
+    <div className="rounded-xl bg-white shadow-xl overflow-hidden border-0 relative">
+      {/* Barra decorativa superior mejorada con animación sutil */}
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-orange-400 to-yellow-400"></div>
       
-      {/* Styled header with warm food colors */}
-      <div className={`px-6 py-5 ${headerGradient}`}>
-        <h3 className="font-bold text-xl text-white tracking-wide">
+      {/* Encabezado mejorado con más padding y mejor tipografía */}
+      <div className={`px-8 py-5 ${headerGradient}`}>
+        <h3 className="font-bold text-xl text-white tracking-wide flex items-center">
+          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+          </svg>
           {titulo}
         </h3>
       </div>
 
-      {/* Card-style table container */}
-      <div className="p-4 bg-orange-50/50">
-        <div className="overflow-x-auto rounded-xl">
+      {/* Contenedor de tabla mejorado con fondo sutil */}
+      <div className="p-5 bg-gradient-to-b from-orange-50/80 to-white">
+        <div className="overflow-x-auto rounded-xl shadow-sm">
           <table className="w-full text-sm border-separate border-spacing-0 bg-white rounded-xl overflow-hidden">
             <thead>
-              <tr className="bg-amber-100 text-amber-900 uppercase text-xs tracking-wider">
+              <tr className="bg-gradient-to-r from-amber-100/90 to-amber-50 text-amber-900 uppercase text-xs tracking-wider">
                 {columnas.map((item) => (
                   <th 
                     scope="col" 
@@ -58,14 +61,14 @@ const List: React.FC<ListProps> = ({
                 )}
               </tr>
             </thead>
-            <tbody className="divide-y divide-amber-100">
+            <tbody className="divide-y divide-amber-100/50">
               {datos.length > 0 ? (
                 datos.map((item, index) => (
                   <tr
-                    className={`transition-colors duration-200 ${
+                    className={`transition-all duration-300 ${
                       hoveredRow === index 
-                        ? "bg-amber-50" 
-                        : "bg-white"
+                        ? "bg-amber-50/70 shadow-sm" 
+                        : "bg-white hover:bg-amber-50/30"
                     }`}
                     key={index}
                     onMouseEnter={() => setHoveredRow(index)}
@@ -77,19 +80,21 @@ const List: React.FC<ListProps> = ({
                         key={col.name}
                       >
                         {col.type === "image" ? (
-                          <img 
-                            src={item[col.name]} 
-                            alt="Platillo" 
-                            className="w-16 h-16 rounded-full object-cover border-2 border-amber-200 shadow-sm"
-                          />
+                          <div className="p-1 bg-gradient-to-br from-yellow-200 to-amber-300 rounded-full inline-block">
+                            <img 
+                              src={item[col.name]} 
+                              alt="Platillo" 
+                              className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm"
+                            />
+                          </div>
                         ) : col.type === "price" ? (
-                          <span className="font-medium text-amber-800">
+                          <div className="font-medium text-amber-800 bg-amber-50 px-4 py-1 rounded-full inline-block shadow-sm">
                             ${typeof item[col.name] === 'number' 
                               ? item[col.name].toFixed(2) 
                               : item[col.name]}
-                          </span>
+                          </div>
                         ) : col.type === "category" ? (
-                          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800">
+                          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-amber-50 to-amber-100 text-amber-800 shadow-sm border border-amber-200/50">
                             {item[col.name]}
                           </span>
                         ) : (
@@ -99,7 +104,7 @@ const List: React.FC<ListProps> = ({
                     ))}
                     {acciones.length > 0 && (
                       <td className="px-6 py-4">
-                        <div className="flex justify-center items-center space-x-3">
+                        <div className="flex justify-center items-center space-x-4">
                           {acciones.map((accion) => (
                             <div className="relative" key={accion.nombre}>
                               <button
@@ -108,20 +113,20 @@ const List: React.FC<ListProps> = ({
                                 onMouseLeave={() => setActiveTooltip(null)}
                                 className={`text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 transform hover:scale-110 hover:shadow-lg active:scale-95 ${
                                   accion.nombre.toLowerCase().includes('delete') || accion.nombre.toLowerCase().includes('eliminar')
-                                    ? 'bg-red-500 hover:bg-red-600' 
+                                    ? 'bg-gradient-to-br from-red-400 to-red-600 hover:from-red-500 hover:to-red-700' 
                                     : accion.nombre.toLowerCase().includes('edit') || accion.nombre.toLowerCase().includes('editar')
-                                      ? 'bg-amber-500 hover:bg-amber-600'
+                                      ? 'bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700'
                                       : accion.nombre.toLowerCase().includes('view') || accion.nombre.toLowerCase().includes('ver')
-                                        ? 'bg-green-500 hover:bg-green-600'
-                                        : 'bg-orange-500 hover:bg-orange-600'
+                                        ? 'bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700'
+                                        : 'bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700'
                                 }`}
                               >
-                                <accion.icon size={18} />
+                                <accion.icon size={18} className="drop-shadow-sm" />
                               </button>
                               
-                              {/* Food-themed tooltip */}
+                              {/* Tooltip mejorado con animación */}
                               {activeTooltip?.index === index && activeTooltip?.action === accion.nombre && (
-                                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-amber-800 text-amber-50 text-xs px-3 py-1 rounded-lg whitespace-nowrap z-10 shadow-md">
+                                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-700 to-amber-800 text-amber-50 text-xs px-3 py-1.5 rounded-lg whitespace-nowrap z-10 shadow-lg animate-fadeIn">
                                   {accion.etiqueta}
                                   <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-amber-800 rotate-45"></div>
                                 </div>
@@ -137,13 +142,16 @@ const List: React.FC<ListProps> = ({
                 <tr>
                   <td 
                     colSpan={columnas.length + (acciones.length > 0 ? 1 : 0)} 
-                    className="px-6 py-8 text-center text-amber-800 italic bg-amber-50"
+                    className="px-6 py-10 text-center text-amber-800 bg-gradient-to-b from-amber-50/80 to-amber-50/30"
                   >
-                    <div className="flex flex-col items-center justify-center py-6">
-                      <svg className="w-12 h-12 text-amber-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                      </svg>
+                    <div className="flex flex-col items-center justify-center py-8">
+                      <div className="w-16 h-16 mb-4 rounded-full bg-amber-100 flex items-center justify-center">
+                        <svg className="w-10 h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                      </div>
                       <p className="text-base font-medium">{emptyMessage}</p>
+                      <p className="text-amber-600 text-sm mt-1">Intenta agregar nuevos elementos</p>
                     </div>
                   </td>
                 </tr>

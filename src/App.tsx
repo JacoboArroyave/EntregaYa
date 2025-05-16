@@ -14,14 +14,17 @@ import { Suspense } from 'react';
 import Loader from './common/Loader';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
+
 // Pagina de garficas 
 import DashChart from './pages/DashChart';
+
 
 function App() {
   // const [count, setCount] = useState(0);
 
 
   return (
+
 
     <Routes>
 
@@ -49,6 +52,7 @@ function App() {
         })}
       </Route>
     </Routes>
+
 
   );
 }

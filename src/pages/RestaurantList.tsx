@@ -11,6 +11,7 @@ const RestaurantList: React.FC = () => {
     const fetchRestaurants = async () => {
       const data = await getRestaurants();
       setRestaurants(data);
+      console.log("Restaurantes:", restaurants);
     };
 
     fetchRestaurants();
