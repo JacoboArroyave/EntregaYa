@@ -26,10 +26,11 @@ const FormComponent: React.FC<MyFormProps> = ({ mode, handleCreate, handleUpdate
     };
     return (
         <Formik
-            initialValues={object || { initialValuesProps }}
+            initialValues={object ||  initialValuesProps }
 
             validationSchema={validetionSchemaProps()}
             onSubmit={(values) => {
+                console.log("camii");
                 
                 const formattedValues = { ...values };  // Formateo adicional si es necesario
                 handleSubmit(formattedValues);

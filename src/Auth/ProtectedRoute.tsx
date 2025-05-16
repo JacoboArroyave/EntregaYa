@@ -5,15 +5,13 @@ const isAuthenticated = () => {
     console.log("verificando autenticacion");
     
     const user = localStorage.getItem("usuario");
-    console.log(user);
     
     return user ? true : false;
 };
 
 // Componente de Ruta Protegida
 const ProtectedRoute = () => {
-    console.log(isAuthenticated() );
-    console.log("hola");
+    console.log(isAuthenticated());
     
     return isAuthenticated() ? <Outlet /> : <Navigate to="/login" replace />;
 };

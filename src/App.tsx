@@ -13,36 +13,39 @@ import { Suspense } from 'react';
 import Loader from './common/Loader';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import DriverList from './pages/DriverList';
+import Navbar from './components/NavBar';
 
 function App() {
   // const [count, setCount] = useState(0);
 
 
   return (
+    <>
+      <Navbar />
+      <Routes>
 
-    <Routes>
+        <Route path="/login" element={<Login />} />
 
-      <Route path="/login" element={<Login />} />
 
-      
-      <Route element={<ProtectedRoute />}>
-        {routes.map((routes, index) => {
-          const { path, component: Component } = routes;
-          return (
-            <Route
-              key={index}
-              path={path}
-              element={
-                <Suspense fallback={<Loader />}>
-                  <Component />
-                </Suspense>
-              }
-            />
-          );
-        })}
-      </Route>
-    </Routes>
-
+        <Route element={<ProtectedRoute />}>
+          <Route  element={<Navbar />} />
+          {routes.map((routes, index) => {
+            const { path, component: Component } = routes;
+            return (
+              <Route
+                key={index}
+                path={path}
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <Component />
+                  </Suspense>
+                }
+              />
+            );
+          })}
+        </Route>
+      </Routes>
+    </>
   );
 }
 

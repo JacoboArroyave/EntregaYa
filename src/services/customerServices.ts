@@ -14,6 +14,7 @@ export const getCustomers = async (): Promise<Customer[]> => {
     }
 };
 
+
 // Obtener un cliente por ID
 export const getCustomerById = async (id: string): Promise<Customer | null> => {
     try {

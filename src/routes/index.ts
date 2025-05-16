@@ -8,6 +8,9 @@ const ListMenu = lazy(() => import('../pages/MenuList'));
 const ListMotorcycle = lazy(() => import('../pages/MotorcycleList'));
 const ListProduct = lazy(() => import('../pages/ProductList'));
 const createRestaurant = lazy(() => import('../pages/RestaurantsCreate'));
+const RestaurantList = lazy(() => import('../pages/ListRestaurant'));
+const ProductCards = lazy(() => import('../pages/ProductCards'));
+
 
 //const ListShift = lazy(() => import('../pages/ShiftList'));
 //const ListIssue = lazy(() => import('../pages/IssueList'));
@@ -21,6 +24,16 @@ const coreRoutes = [
     path: '/list-restaurant',
     title: 'Restaurant List',
     component: ListRestaurant,
+  },
+  {
+    path: '/products/:id',
+    title: 'Restaurant List',
+    component: ProductCards,
+  },
+  {
+    path: '/list',
+    title: 'Restaurant',
+    component: RestaurantList,
   },
   {
     path: '/list-driver',
