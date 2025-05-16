@@ -10,7 +10,7 @@ const Login = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Correos permitidos
-  const allowedEmails = ['camiloreact12@gmail.com', 'andres.giraldo47424.@ucaldas.edu.co', 'jacobo.arroyave46095@ucaldas.edu.co'];
+  const allowedEmails = ['camiloreact12@gmail.com', 'andresfelipegiraldorojas485@gmail.com', 'jacobo.arroyave46095@ucaldas.edu.co'];
 
   useEffect(() => {
     const savedToken = localStorage.getItem('google_token');

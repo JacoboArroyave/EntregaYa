@@ -4,8 +4,8 @@ import { Navigate, Outlet } from "react-router-dom";
 const isAuthenticated = () => {
     console.log("verificando autenticacion");
     
-    const user = localStorage.getItem("usuario");
-    
+    let user = localStorage.getItem("user");
+    user = user ? JSON.parse(user) : null;
     return user ? true : false;
 };
 
