@@ -16,7 +16,7 @@ export const getMenus = async (): Promise<Menu[]> => {
 export const getMenusByIdRestaurant = async (id:string): Promise<Menu[]> => {
     try {
         
-        const response = await api.get(`http://127.0.0.1:5000/restaurants/${id}/menus`);
+        const response = await api.get(`http://127.0.0.1:8000/restaurants/${id}/menus`);
         console.log(response);
         
         return response.data;
