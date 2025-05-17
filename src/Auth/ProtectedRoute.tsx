@@ -2,7 +2,6 @@ import { Navigate, Outlet } from "react-router-dom";
 
 // Función para verificar si el usuario está autenticado
 const isAuthenticated = () => {
-    console.log("verificando autenticacion");
     
     let user = localStorage.getItem("user");
     user = user ? JSON.parse(user) : null;

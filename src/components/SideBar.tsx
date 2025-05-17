@@ -21,7 +21,6 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
   const user = useSelector((state: RootState) => state.user.user);
   const location = useLocation();
   const { pathname } = location;
-
   const sidebar = useRef<HTMLDivElement>(null);
 
   if (!user) return null;

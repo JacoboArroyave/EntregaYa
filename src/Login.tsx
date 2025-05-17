@@ -5,6 +5,9 @@ import './styles/Login.css';
 import { store } from './store/store';
 import { setUser } from './store/UserSlice';
 import { getRestaurants } from './services/restaurantService';
+import { createCustomer, deleteCustomer, getCustomerByEmail } from './services/customerServices';
+import { Customer } from './models/Customer';
+import { setCustomer } from './store/CustomerSlice';
 const Login = () => {
   
   const [error, setError] = useState<string | null>(null);
@@ -13,10 +16,11 @@ const Login = () => {
   const allowedEmails = ['camiloreact12@gmail.com', 'andresfelipegiraldorojas485@gmail.com', 'jacobo.arroyave46095@ucaldas.edu.co'];
 
   useEffect(() => {
-    const savedToken = localStorage.getItem('google_token');
-    if (savedToken) {
+    let decoded:any = localStorage.getItem('user');
+    decoded =JSON.parse(decoded || '{}');
+    
+    if (decoded) {
       try {
-        const decoded = jwtDecode<any>(savedToken);
 
         if (allowedEmails.includes(decoded.email)) {
           
@@ -25,11 +29,17 @@ const Login = () => {
           console.warn('Correo no autorizado:', decoded.email);
           // Limpiar localStorage si el correo no está autorizado
           localStorage.removeItem('user');
+          localStorage.removeItem('customer');
+          localStorage.removeItem('google_token');
         }
       } catch (err) {
         console.error('Error al decodificar el token', err);
+          localStorage.removeItem('user');
+
         // Limpiar localStorage si hay error
-        localStorage.removeItem('user');
+        localStorage.removeItem('customer');
+        localStorage.removeItem('google_token');
+
       }
     }
   }, []);
@@ -42,13 +52,23 @@ const Login = () => {
         const decoded = jwtDecode<any>(credential);
         
         if (allowedEmails.includes(decoded.email)) {
-          const response=await getRestaurants()
-          console.log(response);
-          
-          store.dispatch(setUser(decoded))
+          let customer:any = await getCustomerByEmail(decoded.email);
+          if (!customer) {
+             customer = await createCustomer({
+              email: decoded.email,
+              name: decoded.name,
+              phone: "123",
+            });
+            customer = customer[0];
+          }
+          store.dispatch(setCustomer(customer));
+          localStorage.setItem('google_token', credential);
+          store.dispatch(setUser(decoded));
         } else {
           setError('Este correo no está autorizado para ingresar.');
           localStorage.removeItem('user');
+          localStorage.removeItem('customer');
+          localStorage.removeItem('google_token');
         }
       } catch (err) {
         setError('Error al procesar la información de inicio de sesión');

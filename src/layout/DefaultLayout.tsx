@@ -13,13 +13,13 @@ const DefaultLayout = () => {
         {/* <!-- ===== Page Wrapper Start ===== --> */}
         <div className="flex h-screen overflow-hidden">
           {/* <!-- ===== Sidebar Start ===== --> */}
-          <Sidebar sidebarOpen={sidebarOpen}  />
+          <Sidebar sidebarOpen={sidebarOpen}/>
           {/* <!-- ===== Sidebar End ===== --> */}
 
           {/* <!-- ===== Content Area Start ===== --> */}
           <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
             {/* <!-- ===== Navbar Start ===== --> */}
-            <Navbar />
+            <Navbar/>
             {/* <!-- ===== Navbar End ===== --> */}
 
             {/* <!-- ===== Main Content Start ===== --> */}

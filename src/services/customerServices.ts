@@ -25,6 +25,16 @@ export const getCustomerById = async (id: string): Promise<Customer | null> => {
         return null;
     }
 };
+// Obtener un cliente por email
+export const getCustomerByEmail = async (email: string): Promise<Customer | null> => {
+    try {
+        const response = await api.get(`${API_URL}/email/${email}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener el cliente por email:", error);
+        return null;
+    }
+};
 
 // Crear un nuevo cliente
 export const createCustomer = async (customer: Omit<Customer, "id">): Promise<Customer | null> => {
