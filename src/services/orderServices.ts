@@ -23,6 +23,7 @@ export const getOrderById = async (id: string): Promise<Order | null> => {
         console.error("Error al obtener la orden por ID:", error);
         return null;
     }
+    
 };
 
 // Crear una nueva orden
