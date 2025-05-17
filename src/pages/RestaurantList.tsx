@@ -3,10 +3,11 @@ import List from "../components/List";
 import { getRestaurants } from "../services/restaurantService";
 import { Restaurant } from "../models/Restaurant";
 import { Edit, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const RestaurantList: React.FC = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchRestaurants = async () => {
       const data = await getRestaurants();
@@ -34,7 +35,7 @@ const RestaurantList: React.FC = () => {
 
   const handleAccion = (accion: string, item: Restaurant) => {
     if (accion === "editar") {
-      console.log("Editar:", item);
+      navigate("/create-restaurant")
     } else if (accion === "eliminar") {
       console.log("Eliminar:", item);
     }
