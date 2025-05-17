@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import LogoutButton from "./Logout"; // Asegúrate que la ruta sea correcta
-import { Bell, Menu, X, ShoppingBag, MapPin, Truck } from "lucide-react";
+import LogoutButton from "./Logout";
+import { Bell, Menu, X, ShoppingBag, MapPin } from "lucide-react";
 
-// Conexión al socket
 const socket = io("http://127.0.0.1:5000");
 
 const Navbar = () => {
   const [notifications, setNotifications] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("Seleccionar ubicación");
-  
+
   const navItems = [
     { name: "Restaurantes", href: "/restaurantes" },
   ];
@@ -35,23 +34,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-red-500 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4">
+    <nav className="fixed top-0 right-0 left-72 bg-orange-600 shadow-md z-40">
+      <div className="px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo y nombre de la app */}
-          <div className="flex items-center">
-            <Truck className="h-7 w-7 text-white mr-1" />
-            <span className="text-white text-lg font-bold">DeliveryYa</span>
-          </div>
-          
           {/* Ubicación (escritorio) */}
           <div className="hidden md:flex items-center mx-4 flex-1">
-            <div className="flex items-center text-white bg-red-600 px-3 py-1 rounded-full max-w-xs">
+            <div className="flex items-center text-white bg-orange-800 px-3 py-1 rounded-full max-w-xs">
               <MapPin size={16} className="mr-1 flex-shrink-0" />
               <span className="text-sm truncate">{currentLocation}</span>
             </div>
           </div>
-          
+
           {/* Enlaces de navegación (escritorio) */}
           <div className="hidden md:block">
             <div className="flex items-center space-x-1">
@@ -59,24 +52,24 @@ const Navbar = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-white hover:bg-red-600 px-3 py-2 rounded-md text-sm"
+                  className="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm"
                 >
                   {item.name}
                 </a>
               ))}
             </div>
           </div>
-          
+
           {/* Iconos de carrito y notificaciones */}
           <div className="flex items-center">
             {/* Carrito */}
             <a href="/carrito" className="p-2 text-white relative">
               <ShoppingBag size={20} />
-              <span className="absolute -top-1 -right-1 bg-yellow-400 text-red-700 text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+              <span className="absolute -top-1 -right-1 bg-yellow-400 text-orange-800 text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
                 3
               </span>
             </a>
-            
+
             {/* Notificaciones */}
             <div className="relative mx-2">
               <button
@@ -86,7 +79,7 @@ const Navbar = () => {
               >
                 <Bell size={20} />
                 {notifications > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-yellow-400 text-red-700 text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                  <span className="absolute -top-1 -right-1 bg-yellow-400 text-orange-800 text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
                     {notifications > 9 ? '9+' : notifications}
                   </span>
                 )}
@@ -95,7 +88,7 @@ const Navbar = () => {
                 <LogoutButton />
               </div>
             </div>
-            
+
             {/* Botón de menú móvil */}
             <div className="md:hidden">
               <button
@@ -109,28 +102,28 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Menú móvil */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-red-600">
+        <div className="md:hidden bg-orange-800">
           {/* Ubicación móvil */}
-          <div className="px-4 py-2 flex items-center text-white border-b border-red-400">
+          <div className="px-4 py-2 flex items-center text-white border-b border-orange-600">
             <MapPin size={16} className="mr-2" />
             <span className="text-sm truncate">{currentLocation}</span>
           </div>
-          
+
           {/* Navegación móvil */}
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="text-white block px-3 py-2 rounded-md text-base"
+                className="text-white block px-3 py-2 rounded-md text-base hover:bg-orange-700"
               >
                 {item.name}
               </a>
             ))}
-            <a href="/carrito" className="flex items-center text-white px-3 py-2 rounded-md text-base">
+            <a href="/carrito" className="flex items-center text-white px-3 py-2 rounded-md text-base hover:bg-orange-700">
               <ShoppingBag size={16} className="mr-2" />
               Mi Carrito (3)
             </a>
