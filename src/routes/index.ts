@@ -35,7 +35,7 @@ const coreRoutes = [
     component: ProductCards,
   },
   {
-    path: '/list',
+    path: '/',
     title: 'Restaurant',
     component: RestaurantList,
   },

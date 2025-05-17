@@ -8,13 +8,13 @@ import { getRestaurants } from './services/restaurantService';
 import { createCustomer, deleteCustomer, getCustomerByEmail } from './services/customerServices';
 import { Customer } from './models/Customer';
 import { setCustomer } from './store/CustomerSlice';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   
   const [error, setError] = useState<string | null>(null);
-
+  const navigate = useNavigate();
   // Correos permitidos
   const allowedEmails = ['camiloreact12@gmail.com', 'andresfelipegiraldorojas485@gmail.com', 'jacobo.arroyave46095@ucaldas.edu.co'];
-
   useEffect(() => {
     let decoded:any = localStorage.getItem('user');
     decoded =JSON.parse(decoded || '{}');
@@ -64,6 +64,7 @@ const Login = () => {
           store.dispatch(setCustomer(customer));
           localStorage.setItem('google_token', credential);
           store.dispatch(setUser(decoded));
+          navigate("/")
         } else {
           setError('Este correo no está autorizado para ingresar.');
           localStorage.removeItem('user');

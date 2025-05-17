@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import { Restaurant } from "../models/Restaurant";
 import Cards from "../components/Cards";
-import { useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import { getMenusByIdRestaurant } from "../services/menuService";
 import { Product } from "../models/Product";
 
 const ProductCards: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]); 
     const {id}=useParams<{ id: string }>();
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchMenuByIdRestaurant = async () => {
           if (id !== undefined) {
             const data = await getMenusByIdRestaurant(id);
             console.log("data", data);
+            if (data.length === 0) {
+              navigate(`/`)
+            }
             
             const products = data.map((menu) => (menu.product));
             setProducts(products);
