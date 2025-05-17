@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
+import LogoutButton from "./Logout"; // Asegúrate que la ruta sea correcta
 import { Bell, Menu, X, ShoppingBag, MapPin, Truck } from "lucide-react";
 
 // Conexión al socket
@@ -90,6 +91,9 @@ const Navbar = () => {
                   </span>
                 )}
               </button>
+              <div className="ml-2">
+                <LogoutButton />
+              </div>
             </div>
             
             {/* Botón de menú móvil */}
