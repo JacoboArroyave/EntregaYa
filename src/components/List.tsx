@@ -21,16 +21,17 @@ const List: React.FC<ListProps> = ({
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const [activeTooltip, setActiveTooltip] = useState<{index: number, action: string} | null>(null);
 
-  // Mejorado: Gradiente más vibrante para el encabezado
-  const headerGradient = "bg-gradient-to-r from-red-500 via-orange-500 to-yellow-400";
+  // Combinación de colores naranja-verde
+  const primaryOrange = "from-orange-400 to-orange-600";
+  const primaryGreen = "from-green-400 to-green-600";
   
   return (
     <div className="rounded-xl bg-white shadow-xl overflow-hidden border-0 relative">
-      {/* Barra decorativa superior mejorada con animación sutil */}
-      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-orange-400 to-yellow-400"></div>
+      {/* Barra decorativa superior con los colores naranja y verde */}
+      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-orange-500 via-orange-400 to-green-500"></div>
       
-      {/* Encabezado mejorado con más padding y mejor tipografía */}
-      <div className={`px-8 py-5 ${headerGradient}`}>
+      {/* Encabezado con fondo naranja */}
+      <div className={`px-8 py-5 bg-gradient-to-r ${primaryOrange}`}>
         <h3 className="font-bold text-xl text-white tracking-wide flex items-center">
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
@@ -39,12 +40,12 @@ const List: React.FC<ListProps> = ({
         </h3>
       </div>
 
-      {/* Contenedor de tabla mejorado con fondo sutil */}
-      <div className="p-5 bg-gradient-to-b from-orange-50/80 to-white">
+      {/* Contenedor de tabla con fondo blanco */}
+      <div className="p-5 bg-white">
         <div className="overflow-x-auto rounded-xl shadow-sm">
           <table className="w-full text-sm border-separate border-spacing-0 bg-white rounded-xl overflow-hidden">
             <thead>
-              <tr className="bg-gradient-to-r from-amber-100/90 to-amber-50 text-amber-900 uppercase text-xs tracking-wider">
+              <tr className="bg-gradient-to-r from-orange-50 to-green-50 text-gray-700 uppercase text-xs tracking-wider">
                 {columnas.map((item) => (
                   <th 
                     scope="col" 
@@ -61,14 +62,14 @@ const List: React.FC<ListProps> = ({
                 )}
               </tr>
             </thead>
-            <tbody className="divide-y divide-amber-100/50">
+            <tbody className="divide-y divide-gray-100">
               {datos.length > 0 ? (
                 datos.map((item, index) => (
                   <tr
                     className={`transition-all duration-300 ${
                       hoveredRow === index 
-                        ? "bg-amber-50/70 shadow-sm" 
-                        : "bg-white hover:bg-amber-50/30"
+                        ? "bg-orange-50/70 shadow-sm" 
+                        : "bg-white hover:bg-green-50/30"
                     }`}
                     key={index}
                     onMouseEnter={() => setHoveredRow(index)}
@@ -80,7 +81,7 @@ const List: React.FC<ListProps> = ({
                         key={col.name}
                       >
                         {col.type === "image" ? (
-                          <div className="p-1 bg-gradient-to-br from-yellow-200 to-amber-300 rounded-full inline-block">
+                          <div className="p-1 bg-gradient-to-br from-orange-200 to-orange-300 rounded-full inline-block">
                             <img 
                               src={item[col.name]} 
                               alt="Platillo" 
@@ -88,13 +89,13 @@ const List: React.FC<ListProps> = ({
                             />
                           </div>
                         ) : col.type === "price" ? (
-                          <div className="font-medium text-amber-800 bg-amber-50 px-4 py-1 rounded-full inline-block shadow-sm">
+                          <div className="font-medium text-green-800 bg-green-50 px-4 py-1 rounded-full inline-block shadow-sm">
                             ${typeof item[col.name] === 'number' 
                               ? item[col.name].toFixed(2) 
                               : item[col.name]}
                           </div>
                         ) : col.type === "category" ? (
-                          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-amber-50 to-amber-100 text-amber-800 shadow-sm border border-amber-200/50">
+                          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-orange-50 to-orange-100 text-orange-800 shadow-sm border border-orange-200/50">
                             {item[col.name]}
                           </span>
                         ) : (
@@ -115,7 +116,7 @@ const List: React.FC<ListProps> = ({
                                   accion.nombre.toLowerCase().includes('delete') || accion.nombre.toLowerCase().includes('eliminar')
                                     ? 'bg-gradient-to-br from-red-400 to-red-600 hover:from-red-500 hover:to-red-700' 
                                     : accion.nombre.toLowerCase().includes('edit') || accion.nombre.toLowerCase().includes('editar')
-                                      ? 'bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700'
+                                      ? 'bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700'
                                       : accion.nombre.toLowerCase().includes('view') || accion.nombre.toLowerCase().includes('ver')
                                         ? 'bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700'
                                         : 'bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700'
@@ -124,11 +125,11 @@ const List: React.FC<ListProps> = ({
                                 <accion.icon size={18} className="drop-shadow-sm" />
                               </button>
                               
-                              {/* Tooltip mejorado con animación */}
+                              {/* Tooltip con colores actualizados */}
                               {activeTooltip?.index === index && activeTooltip?.action === accion.nombre && (
-                                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-700 to-amber-800 text-amber-50 text-xs px-3 py-1.5 rounded-lg whitespace-nowrap z-10 shadow-lg animate-fadeIn">
+                                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-600 to-orange-700 text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap z-10 shadow-lg animate-fadeIn">
                                   {accion.etiqueta}
-                                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-amber-800 rotate-45"></div>
+                                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-orange-700 rotate-45"></div>
                                 </div>
                               )}
                             </div>
@@ -142,16 +143,16 @@ const List: React.FC<ListProps> = ({
                 <tr>
                   <td 
                     colSpan={columnas.length + (acciones.length > 0 ? 1 : 0)} 
-                    className="px-6 py-10 text-center text-amber-800 bg-gradient-to-b from-amber-50/80 to-amber-50/30"
+                    className="px-6 py-10 text-center text-gray-800 bg-gradient-to-b from-white to-orange-50/30"
                   >
                     <div className="flex flex-col items-center justify-center py-8">
-                      <div className="w-16 h-16 mb-4 rounded-full bg-amber-100 flex items-center justify-center">
-                        <svg className="w-10 h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <div className="w-16 h-16 mb-4 rounded-full bg-orange-100 flex items-center justify-center">
+                        <svg className="w-10 h-10 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                       </div>
                       <p className="text-base font-medium">{emptyMessage}</p>
-                      <p className="text-amber-600 text-sm mt-1">Intenta agregar nuevos elementos</p>
+                      <p className="text-orange-600 text-sm mt-1">Intenta agregar nuevos elementos</p>
                     </div>
                   </td>
                 </tr>
@@ -159,6 +160,15 @@ const List: React.FC<ListProps> = ({
             </tbody>
           </table>
         </div>
+        
+        {/* Indicador de cantidad de registros */}
+        {datos.length > 0 && (
+          <div className="mt-4 text-right text-sm text-gray-500">
+            <span className="bg-green-50 text-green-700 px-3 py-1 rounded-full font-medium">
+              {datos.length} {datos.length === 1 ? "registro" : "registros"}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

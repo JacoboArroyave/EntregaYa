@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List_prueba";
+import List from "../components/List";
 import { getMenus } from "../services/menuService";
 import { Menu } from "../models/Menu";
 import { Edit, Trash2 } from "lucide-react";
