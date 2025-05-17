@@ -34,7 +34,7 @@ const Card: React.FC<CardsProps> = ({ title, data, handleClick, firstAtribute, s
                 onClick={() => handleClick(item)}
 
                 className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white px-5 py-2 rounded-full text-sm shadow-md hover:shadow-lg transition-all duration-200">
-                {button}
+                {button}  
               </button>
             </div>
           </div>

@@ -29,7 +29,7 @@ function App() {
     <Routes>
 
       <Route path="/login" element={<Login />} />
-      {/* <Route path="/" element={<Layout/>} /> */}
+      <Route  element={<Layout/>} />
       {/* <Route path="/" element={<DashChart/>} /> */}
       {/* <Route path="/" element={<Circular} /> */}
 
