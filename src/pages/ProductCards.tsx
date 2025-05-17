@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Restaurant } from "../models/Restaurant";
 import Cards from "../components/Cards";
-import {  useNavigate, useParams } from "react-router-dom";
+import {  Form, useNavigate, useParams } from "react-router-dom";
 import { getMenusByIdRestaurant } from "../services/menuService";
 import { Product } from "../models/Product";
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ const ProductCards: React.FC = () => {
     const navigate = useNavigate();
     const customer=useSelector((state:any) => state.customer.customer);
     const [menuId,setMenuId]=useState<string>("");
+    
     useEffect(() => {
         const fetchMenuByIdRestaurant = async () => {
           if (id !== undefined) {
@@ -44,7 +45,7 @@ const ProductCards: React.FC = () => {
         handleClick={handleClick}
         firstAtribute={{ attribute: "description"}}
         secondAtribute={{ attribute: "category" }}
-        button="Agregar al carrito"
+        button="Hacer pedido"
         />
         )
 }

@@ -30,7 +30,6 @@ const FormComponent: React.FC<MyFormProps> = ({ mode, handleCreate, handleUpdate
 
             validationSchema={validetionSchemaProps()}
             onSubmit={(values) => {
-                console.log("camii");
                 
                 const formattedValues = { ...values };  // Formateo adicional si es necesario
                 handleSubmit(formattedValues);
@@ -47,7 +46,7 @@ const FormComponent: React.FC<MyFormProps> = ({ mode, handleCreate, handleUpdate
                             <ErrorMessage name={label.for} component="p" className="text-red-500 text-sm" />
                         </div>
                     ))}
-
+                    
                     
                     {/* Botón de enviar */}
                     <button

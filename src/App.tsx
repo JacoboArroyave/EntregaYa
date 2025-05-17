@@ -12,11 +12,7 @@ import Layout from './layout/DefaultLayout';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import { Suspense } from 'react';
 import Loader from './common/Loader';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-
-
-// Pagina de garficas 
-import DashChart from './pages/DashChart';
+// import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
 function App() {
@@ -27,33 +23,27 @@ function App() {
 
 
     <Routes>
-
       <Route path="/login" element={<Login />} />
-      <Route  element={<Layout/>} />
-      {/* <Route path="/" element={<DashChart/>} /> */}
-      {/* <Route path="/" element={<Circular} /> */}
 
-
-      
       <Route element={<ProtectedRoute />}>
-        {routes.map((routes, index) => {
-          const { path, component: Component } = routes;
-          return (
-            <Route
-              key={index}
-              path={path}
-              element={
-                <Suspense fallback={<Loader />}>
-                  <Component />
-                </Suspense>
-              }
-            />
-          );
-        })}
+        <Route path="/" element={<Layout />}>
+          {routes.map((route, index) => {
+            const { path, component: Component } = route;
+            return (
+              <Route
+                key={index}
+                path={path}
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <Component />
+                  </Suspense>
+                }
+              />
+            );
+          })}
+        </Route>
       </Route>
     </Routes>
-
-
   );
 }
 
