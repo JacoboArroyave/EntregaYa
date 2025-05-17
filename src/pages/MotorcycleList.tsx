@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List_prueba";
+import List from "../components/List";
 import { getMotorcycles } from "../services/motorcycleService";
 import { Motorcycle } from "../models/Motorcycle";
 import { Edit, Trash2 } from "lucide-react";
