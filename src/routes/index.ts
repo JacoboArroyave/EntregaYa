@@ -7,14 +7,12 @@ const ListDriver = lazy(() => import('../pages/DriverList'));
 const ListMenu = lazy(() => import('../pages/MenuList'));
 const ListMotorcycle = lazy(() => import('../pages/MotorcycleList'));
 const ListProduct = lazy(() => import('../pages/ProductList'));
+const ListAddress = lazy(() => import('../pages/ListAddress'));
+const CreateAdress = lazy(() => import('../pages/AddressCreate'));
 const createRestaurant = lazy(() => import('../pages/RestaurantsCreate'));
-
 const DashChart = lazy(() => import('../pages/DashChart'));
-
 const RestaurantList = lazy(() => import('../pages/ListRestaurant'));
 const ProductCards = lazy(() => import('../pages/ProductCards'));
-
-
 
 //const ListShift = lazy(() => import('../pages/ShiftList'));
 //const ListIssue = lazy(() => import('../pages/IssueList'));
@@ -45,6 +43,11 @@ const coreRoutes = [
     component: ListDriver,
   },
   {
+    path: '/addresses',
+    title: 'Addresses lIst',
+    component: ListAddress,
+  },
+  {
     path: '/list-menu',
     title: 'Menu List',
     component: ListMenu,
@@ -53,6 +56,11 @@ const coreRoutes = [
     path: '/charts',
     title: 'Dash Chart',
     component: DashChart,
+  },
+  {
+    path: '/address/create',
+    title: 'Crear Dirreccion formulario',
+    component: CreateAdress,
   },
   {
     path: '/list-motorcycle',

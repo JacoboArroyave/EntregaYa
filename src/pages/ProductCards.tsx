@@ -1,18 +1,18 @@
+// ProductCards
 import { useEffect, useState } from "react";
 import { Restaurant } from "../models/Restaurant";
 import Cards from "../components/Cards";
 import {  Form, useNavigate, useParams } from "react-router-dom";
 import { getMenusByIdRestaurant } from "../services/menuService";
 import { Product } from "../models/Product";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 
 const ProductCards: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]); 
     const {id}=useParams<{ id: string }>();
-    const navigate = useNavigate();
-    const customer=useSelector((state:any) => state.customer.customer);
-    const [menuId,setMenuId]=useState<string>("");
-    
+    const navigate = useNavigate(); // ← usar navigate
+
     useEffect(() => {
         const fetchMenuByIdRestaurant = async () => {
           if (id !== undefined) {
@@ -33,11 +33,14 @@ const ProductCards: React.FC = () => {
     
         fetchMenuByIdRestaurant();
       }, [id]);
+
+
     const handleClick = (item: Product) => {
-      console.log(menuId,item,customer.id);
-      
-      
-    }
+    navigate("/address/create", {
+      state: { id }, // ← enviar ID por estado
+    });
+  };
+
     return (
         <Cards
         title="hola"

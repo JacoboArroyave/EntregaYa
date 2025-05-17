@@ -12,6 +12,7 @@ import Layout from './layout/DefaultLayout';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import { Suspense } from 'react';
 import Loader from './common/Loader';
+import MapTracking from './components/MapTracking';
 // import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
@@ -24,9 +25,10 @@ function App() {
 
     <Routes>
       <Route path="/login" element={<Login />} />
+      {/* <Route path="/" element={<MapTracking />} /> */}
 
+      <Route element={<Layout />}>
       <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Layout />}>
           {routes.map((route, index) => {
             const { path, component: Component } = route;
             return (
