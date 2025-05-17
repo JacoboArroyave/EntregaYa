@@ -21,9 +21,8 @@ const MenuList: React.FC = () => {
   const columnas = [
     { name: "id", type: "string" },
     { name: "price", type: "number" },
-    { name: "availability", type: "number" },
-    { name: "restaurant", type: "object" },
-    { name: "products", type: "array" },
+    { name: "availability", type: "boolean" },
+ 
   ];
 
   const acciones = [

@@ -95,7 +95,8 @@ const List: React.FC<ListProps> = ({
                               : item[col.name]}
                           </div>
                         ) : col.type === "category" ? (
-                          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-orange-50 to-orange-100 text-orange-800 shadow-sm border border-orange-200/50">
+                          <span
+                           className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-orange-50 to-orange-100 text-orange-800 shadow-sm border border-orange-200/50">
                             {item[col.name]}
                           </span>
                         ) : (

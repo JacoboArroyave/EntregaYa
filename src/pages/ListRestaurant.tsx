@@ -24,7 +24,7 @@ const ListRestaurant: React.FC = () => {
     }
     return (
         <Cards
-        title="hola"
+        urlPhoto="https://media-cdn.tripadvisor.com/media/photo-s/16/2d/33/8f/el-restaurante-por-fuera.jpg"
         data={restaurants}
         handleClick={handleClick}
         firstAtribute={{ attribute: "email", icon: "📧" }}

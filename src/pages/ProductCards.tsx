@@ -16,7 +16,7 @@ const ProductCards: React.FC = () => {
     useEffect(() => {
         const fetchMenuByIdRestaurant = async () => {
           if (id !== undefined) {
-
+            
             const data = await getMenusByIdRestaurant(id);
             console.log("data", data);
             if (data.length === 0) {
@@ -40,7 +40,7 @@ const ProductCards: React.FC = () => {
     }
     return (
         <Cards
-        title="hola"
+        urlPhoto="https://img.hellofresh.com/w_3840,q_auto,f_auto,c_fill,fl_lossy/hellofresh_website/es/cms/SEO/recipes/albondigas-caseras-de-cerdo-con-salsa-barbacoa.jpeg"
         data={products}
         handleClick={handleClick}
         firstAtribute={{ attribute: "description"}}
