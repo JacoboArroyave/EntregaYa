@@ -4,6 +4,7 @@
 // import reactLogo from './assets/react.svg';
 // import viteLogo from '/vite.svg';
 import './styles/App.css';
+import 'leaflet/dist/leaflet.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import routes from './routes/index';
@@ -12,7 +13,7 @@ import Layout from './layout/DefaultLayout';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import { Suspense } from 'react';
 import Loader from './common/Loader';
-import MapTracking from './components/MapTracking';
+import MapTracking from './components/TrackingMap';
 // import { GoogleOAuthProvider } from '@react-oauth/google';
 
 

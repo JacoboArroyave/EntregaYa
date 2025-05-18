@@ -4,7 +4,7 @@ import LogoutButton from "./Logout"; // Asegúrate que la ruta sea correcta
 import { Bell, Menu, X, ShoppingBag, MapPin, Truck } from "lucide-react";
 
 // Conexión al socket
-const socket = io("http://127.0.0.1:5000");
+const socket = io("http://127.0.0.1:8000");
 
 const Navbar = () => {
   const [notifications, setNotifications] = useState(0);

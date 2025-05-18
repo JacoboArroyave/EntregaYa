@@ -8,12 +8,14 @@ const ListMenu = lazy(() => import('../pages/MenuList'));
 const ListMotorcycle = lazy(() => import('../pages/MotorcycleList'));
 const ListProduct = lazy(() => import('../pages/ProductList'));
 const ListAddress = lazy(() => import('../pages/ListAddress'));
+const ListOrders = lazy(() => import('../pages/ListOrders'));
 const CreateAdress = lazy(() => import('../pages/AddressCreate'));
 const Order = lazy(() => import('../pages/OrderCreate'));
 const createRestaurant = lazy(() => import('../pages/RestaurantsCreate'));
 const DashChart = lazy(() => import('../pages/DashChart'));
 const RestaurantList = lazy(() => import('../pages/ListRestaurant'));
 const ProductCards = lazy(() => import('../pages/ProductCards'));
+const MapTracking = lazy(() => import('../pages/TrackingPage'));
 
 //const ListShift = lazy(() => import('../pages/ShiftList'));
 //const ListIssue = lazy(() => import('../pages/IssueList'));
@@ -27,6 +29,11 @@ const coreRoutes = [
     path: '/list-restaurant',
     title: 'Restaurant List',
     component: ListRestaurant,
+  },
+  {
+    path: '/list-orders',
+    title: 'List Orders',
+    component: ListOrders,
   },
   {
     path: '/products/:id',
@@ -82,6 +89,11 @@ const coreRoutes = [
     path:"/create-restaurant",
     title: "Create Restaurant",
     component:createRestaurant,
+  },
+  {
+    path:"/MapTracking",
+    title: "Map Tracking",
+    component:MapTracking,
   },
 ];
 
