@@ -2,6 +2,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import SelectField from "./SelectField"; // 👈 Asegúrate de importar el componente
 
+
 interface MyFormProps {
   mode: number;
   handleCreate?: (values: any) => void;
@@ -93,3 +94,4 @@ const FormComponent: React.FC<MyFormProps> = ({
 };
 
 export default FormComponent;
+

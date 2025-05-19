@@ -4,35 +4,31 @@ import Sidebar from '../components/SideBar';
 import { Outlet } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
+
 const DefaultLayout = () => {
-  const [sidebarOpen] = useState(false);
+  const [sidebarOpen] = useState(true);
 
   return (
     <Provider store={store}>
       <div className="dark:bg-boxdark-2 dark:text-bodydark">
-        {/* <!-- ===== Page Wrapper Start ===== --> */}
         <div className="flex h-screen overflow-hidden">
-          {/* <!-- ===== Sidebar Start ===== --> */}
-          <Sidebar sidebarOpen={sidebarOpen}/>
-          {/* <!-- ===== Sidebar End ===== --> */}
+          {/* Sidebar */}
+          <Sidebar sidebarOpen={sidebarOpen} />
 
-          {/* <!-- ===== Content Area Start ===== --> */}
-          <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-            {/* <!-- ===== Navbar Start ===== --> */}
-            <Navbar/>
-            {/* <!-- ===== Navbar End ===== --> */}
+          {/* Main Content Area */}
+          <div className="flex-1 flex flex-col overflow-hidden">
+            {/* Navbar */}
+            <Navbar />
 
-            {/* <!-- ===== Main Content Start ===== --> */}
-            <main>
+            {/* Content */}
+            <main className="flex-1 overflow-y-auto pt-16 md:pl-72">
               <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
                 <Outlet />
               </div>
             </main>
-            {/* <!-- ===== Main Content End ===== --> */}
+
           </div>
-          {/* <!-- ===== Content Area End ===== --> */}
         </div>
-        {/* <!-- ===== Page Wrapper End ===== --> */}
       </div>
     </Provider>
   );

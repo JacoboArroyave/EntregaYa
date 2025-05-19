@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List_prueba";
+import List from "../components/List";
 import { getDrivers } from "../services/driverService";
 import { Driver } from "../models/Driver";
 import { Edit, Trash2 } from "lucide-react";

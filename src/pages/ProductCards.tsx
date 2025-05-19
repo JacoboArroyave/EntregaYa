@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Restaurant } from "../models/Restaurant";
 import Cards from "../components/Cards";
-import { useParams } from "react-router-dom";
+import {  Form, useNavigate, useParams } from "react-router-dom";
 import { getMenusByIdRestaurant } from "../services/menuService";
 import { Product } from "../models/Product";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 
 const ProductCards: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -37,6 +38,7 @@ const ProductCards: React.FC = () => {
       alert("Faltan datos");
       return;
     }
+
     
     // Navegamos pasando datos por location.state
     navigate("/order/create", {
