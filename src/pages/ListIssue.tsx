@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import List from "../components/List";
-import { getAddresses } from "../services/addressService";
-import { Address } from "../models/Address";
 import { Edit, Trash2 } from "lucide-react";
+import { getIssues } from "../services/IssueServices";
+import { Issue } from "../models/Issue";
 
 const AddressList: React.FC = () => {
-  const [addresses, setAddresses] = useState<Address[]>([]);
+  const [Issues, setIssues] = useState<Issue[]>([]);
 
   useEffect(() => {
-    const fetchAddresses = async () => {
-      const data = await getAddresses();
-      setAddresses(data);
+    const fetchIssues = async () => {
+      const data = await getIssues();
+      setIssues(data);
     };
 
-    fetchAddresses();
+    fetchIssues();
   }, []);
 
   const titulo = "Lista de direcciones";
@@ -33,7 +33,7 @@ const AddressList: React.FC = () => {
     { nombre: "eliminar", etiqueta: "Eliminar", icon: Trash2 },
   ];
 
-  const handleAccion = (accion: string, item: Address) => {
+  const handleAccion = (accion: string, item: Issue) => {
     if (accion === "editar") {
       console.log("Editar:", item);
     } else if (accion === "eliminar") {
@@ -44,7 +44,7 @@ const AddressList: React.FC = () => {
   return (
     <List
       titulo={titulo}
-      datos={addresses}
+      datos={Issues}
       columnas={columnas}
       acciones={acciones}
       onAccion={handleAccion}

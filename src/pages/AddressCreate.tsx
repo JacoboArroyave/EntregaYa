@@ -21,7 +21,7 @@ const CreateAddressPage = () => {
   };
 
   const validationSchema = () =>
-    Yup.object({
+    Yup.object({  
       street: Yup.string().required("La calle es obligatoria"),
       city: Yup.string().required("La ciudad es obligatoria"),
       state: Yup.string().required("El estado es obligatorio"),

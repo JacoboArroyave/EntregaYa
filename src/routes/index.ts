@@ -13,7 +13,10 @@ const Order = lazy(() => import('../pages/OrderCreate'));
 const createRestaurant = lazy(() => import('../pages/RestaurantsCreate'));
 const DashChart = lazy(() => import('../pages/DashChart'));
 const RestaurantList = lazy(() => import('../pages/ListRestaurant'));
+const CustomerList = lazy(() => import('../pages/CustomerList'));
 const ProductCards = lazy(() => import('../pages/ProductCards'));
+const OrderList = lazy(() => import('../pages/OrderList'));
+const PhotoList = lazy(() => import('../pages/ListPhotos'));
 
 //const ListShift = lazy(() => import('../pages/ShiftList'));
 //const ListIssue = lazy(() => import('../pages/IssueList'));
@@ -28,6 +31,24 @@ const coreRoutes = [
     title: 'Restaurant List',
     component: ListRestaurant,
   },
+  
+  {
+    path: '/list-photo',
+    title: 'List Photos',
+    component: PhotoList,
+  },
+  
+  {
+    path: '/list-order',
+    title: 'Order List',
+    component: OrderList,
+  },
+  {
+    path: '/list-customer',
+    title: 'Customer List',
+    component: CustomerList,
+  },
+
   {
     path: '/products/:id',
     title: 'Restaurant List',
@@ -49,7 +70,7 @@ const coreRoutes = [
     component: ListDriver,
   },
   {
-    path: '/addresses',
+    path: '/list-address',
     title: 'Addresses lIst',
     component: ListAddress,
   },

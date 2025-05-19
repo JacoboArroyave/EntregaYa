@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import List from "../components/List";
-import { getDrivers } from "../services/driverService";
-import { Driver } from "../models/Driver";
 import { Edit, Trash2 } from "lucide-react";
+import { getCustomers } from "../services/customerServices";
+import { Customer } from "../models/Customer";
 
 const DriverList: React.FC = () => {
-  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
 
   useEffect(() => {
-    const fetchDrivers = async () => {
-      const data = await getDrivers();
-      setDrivers(data);
+    const fetchCustomers = async () => {
+      const data = await getCustomers();
+      setCustomers(data);
+      console.log(customers);
+      
     };
 
-    fetchDrivers();
+    fetchCustomers();
   }, []);
   
   const titulo = "List Drivers"
@@ -22,9 +24,7 @@ const DriverList: React.FC = () => {
     { name: "id", type: "number",text:"ID" },
     { name: "name", type: "string" ,text:"NOMBRE" },
     { name: "email", type: "string",text:"EMAIL" },
-    { name: "license_number", type: "string",text:"NUMERO DE LICENCIA" },
     { name: "phone", type: "string",text:"TELEFONO" },
-    { name: "status", type: "string",text:"ESTADO" },
   ];
 
   const acciones = [
@@ -32,7 +32,7 @@ const DriverList: React.FC = () => {
     { nombre: "eliminar", etiqueta: "Eliminar", icon: Trash2 },
   ];
 
-  const handleAccion = (accion: string, item: Driver) => {
+  const handleAccion = (accion: string, item: Customer) => {
     if (accion === "editar") {
       console.log("Editar:", item);
     } else if (accion === "eliminar") {
@@ -43,7 +43,7 @@ const DriverList: React.FC = () => {
   return (
     <List
       titulo={titulo}
-      datos={drivers}
+      datos={customers}
       columnas={columnas}
       acciones={acciones}
       onAccion={handleAccion}

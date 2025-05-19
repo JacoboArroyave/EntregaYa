@@ -24,11 +24,11 @@ const MotorcycleList: React.FC = () => {
 // year: number;
 // status: string;
   const columnas = [
-    { name: "id", type: "number" },
-    { name: "license_plate", type: "string" },
-    { name: "brand", type: "string" },
-    { name: "year", type: "number" },
-    { name: "status", type: "string" },
+    { name: "id", type: "number",text:"ID" },
+    { name: "license_plate", type: "string",text:"PLACA" },
+    { name: "brand", type: "string" ,text:"MARCA" },
+    { name: "year", type: "number" ,text:"AÑO" },
+    { name: "status", type: "string",text:"ESTADO" },
   ];
 
   const acciones = [

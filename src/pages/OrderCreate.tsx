@@ -90,9 +90,10 @@ const OrderCreate = () => {
     };
 
     try {
-      const result = await createOrder(newOrder);
+      let result:any = await createOrder(newOrder);
+      result = result[0];
       console.log("Resultado de createOrder:", result);
-      if (result?.id) {
+      if (result.id) {
         alert("Orden creada correctamente");
         console.log("Navegando a /address/create con id:", result.id);
         navigate("/address/create", { state: { id: result.id } });
@@ -101,7 +102,8 @@ const OrderCreate = () => {
       }
     } catch (error) {
       console.error(error);
-      alert("Error al crear la orden");
+      console.log("Error al crear la orden",error);
+      
     }
   };
 

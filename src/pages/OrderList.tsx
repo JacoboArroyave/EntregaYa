@@ -1,30 +1,34 @@
 import React, { useEffect, useState } from "react";
 import List from "../components/List";
-import { getDrivers } from "../services/driverService";
-import { Driver } from "../models/Driver";
 import { Edit, Trash2 } from "lucide-react";
+import { getOrders } from "../services/orderServices";
+import { Order } from "../models/Order";
+import { getMotorcycleById } from "../services/motorcycleService";
 
 const DriverList: React.FC = () => {
-  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
+
 
   useEffect(() => {
-    const fetchDrivers = async () => {
-      const data = await getDrivers();
-      setDrivers(data);
+    const fetchOrders = async () => {
+      const data = await getOrders();
+      setOrders(data);
+      console.log("Orders:", data[0]["menu"]["product"]["name"]);
+      
     };
-
-    fetchDrivers();
+    
+    fetchOrders();
   }, []);
   
   const titulo = "List Drivers"
 
+ 
   const columnas = [
     { name: "id", type: "number",text:"ID" },
-    { name: "name", type: "string" ,text:"NOMBRE" },
-    { name: "email", type: "string",text:"EMAIL" },
-    { name: "license_number", type: "string",text:"NUMERO DE LICENCIA" },
-    { name: "phone", type: "string",text:"TELEFONO" },
-    { name: "status", type: "string",text:"ESTADO" },
+    { name: "quantity", type: "string" ,text:"NOMBRE" },
+    { name: "total_price", type: "number",text:"EMAIL" },
+    { name: "motorcycle_id", type: "number",text:"Id moto" },
+    { name: "menu",attribute:"product" ,secondAttribute:"name",type: "doubleObject",text:"Producto" },
   ];
 
   const acciones = [
@@ -32,7 +36,7 @@ const DriverList: React.FC = () => {
     { nombre: "eliminar", etiqueta: "Eliminar", icon: Trash2 },
   ];
 
-  const handleAccion = (accion: string, item: Driver) => {
+  const handleAccion = (accion: string, item: Order) => {
     if (accion === "editar") {
       console.log("Editar:", item);
     } else if (accion === "eliminar") {
@@ -43,7 +47,7 @@ const DriverList: React.FC = () => {
   return (
     <List
       titulo={titulo}
-      datos={drivers}
+      datos={orders}
       columnas={columnas}
       acciones={acciones}
       onAccion={handleAccion}
