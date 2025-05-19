@@ -3,6 +3,5 @@ export interface Order{
     quantity:number
     totalPrice:number
     status:string
-    idCustomer:number
-    idRestaurant:number
+    motorcycle_id: number;
 }

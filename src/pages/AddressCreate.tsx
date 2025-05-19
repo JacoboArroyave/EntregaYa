@@ -5,11 +5,15 @@ import * as Yup from "yup";
 import FormComponent from "../components/FormComponent";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import NotificationAlert from "../components/NotificationAlert";
+import { useState } from "react";
 
 const CreateAddressPage = () => {
   const location = useLocation();
-  const { id: orderId } = location.state || {};
+  const { id: orderId, plate } = location.state || {};
   const navigate = useNavigate(); // ← usar navigate
+  const [showAlert, setShowAlert] = useState(false);
 
   const initialValues: Omit<Address, "id"> = {
     street: "",
@@ -43,15 +47,28 @@ const CreateAddressPage = () => {
   const handleCreate = async (values: Omit<Address, "id">) => {
     const created = await createAddress(values);
     if (created) {
-      // alert("Dirección creada con éxito");
-      navigate("/addresses");
+      // Sonido
+      const audio = new Audio("/alert.mp3");
+      audio.play();
+
+      // Mostrar alerta visual
+      setShowAlert(true);
+
+      // Esperar y navegar
+      setTimeout(() => {
+        navigate("/MapTracking", {
+          state: {
+            plate: plate,
+          },
+        });
+      }, 3000);
     } else {
       alert("Hubo un error al crear la dirección");
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10">
+    <div className="max-w-2xl mx-auto mt-10 relative">
       <h1 className="text-2xl font-bold mb-6">Crear Nueva Dirección</h1>
       <FormComponent
         mode={1}
@@ -60,9 +77,15 @@ const CreateAddressPage = () => {
         validetionSchemaProps={validationSchema}
         labels={labels}
       />
+
+      {showAlert && (
+        <NotificationAlert
+          message={`Nuevo pedido asignado con placa ${plate}`}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
     </div>
   );
 };
-
 
 export default CreateAddressPage;

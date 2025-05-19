@@ -37,6 +37,8 @@ const ProductCards: React.FC = () => {
       alert("Faltan datos");
       return;
     }
+
+    
     // Navegamos pasando datos por location.state
     navigate("/order/create", {
       state: {
@@ -49,6 +51,7 @@ const ProductCards: React.FC = () => {
 
   return (
     <Cards
+      title="hola"
       data={products}
       handleClick={handleClick}
       firstAtribute={{ attribute: "description" }}

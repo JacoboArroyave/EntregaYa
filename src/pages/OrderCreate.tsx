@@ -64,7 +64,9 @@ const OrderCreate = () => {
       type: "select",
       options: shifts.map((s) => ({
         value: s.id,
-        label: `${getDriverName(s.driver_id)} - ${getMotoName(s.motorcycle_id)}`,
+        label: `${getDriverName(s.driver_id)} - ${getMotoName(
+          s.motorcycle_id
+        )}`,
       })),
     },
   ];
@@ -80,23 +82,40 @@ const OrderCreate = () => {
   });
 
   const handleCreate = async (values: any) => {
+    const selectedShift = shifts.find((s) => s.id === values.shift_id);
+    const selectedMoto = motorcycles.find(
+      (m) => m.id === selectedShift?.motorcycle_id
+    );
+    const plate = selectedMoto?.license_plate || "DESCONOCIDA";
+    const motorcycle_id = selectedMoto?.id || "DESCONOCIDA";
+
     const newOrder = {
       customer_id,
       menu_id,
       quantity: values.quantity,
       totalPrice: values.quantity * precio_product,
       status: "pendiente",
-      shift_id: values.shift_id,
+      // shift_id: values.shift_id,
+      motorcycle_id,
     };
 
     try {
-      let result:any = await createOrder(newOrder);
-      result = result[0];
+      const result: any = await createOrder(newOrder);
+      const resultado = result[0];
       console.log("Resultado de createOrder:", result);
-      if (result.id) {
-        alert("Orden creada correctamente");
-        console.log("Navegando a /address/create con id:", result.id);
-        navigate("/address/create", { state: { id: result.id } });
+
+      if (resultado?.id) {
+        console.log(
+          "Navegando a /address/create con id y placa:",
+          resultado.id,
+          plate
+        );
+        navigate("/address/create", {
+          state: { 
+            id: resultado.id, 
+            plate: plate 
+          }, 
+        });
       } else {
         alert("Error al crear la orden");
       }
