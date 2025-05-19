@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List_prueba";
+import List from "../components/List";
 import { getProducts } from "../services/productService";
 import { Product } from "../models/Product";
 import { Edit, Trash2 } from "lucide-react";
