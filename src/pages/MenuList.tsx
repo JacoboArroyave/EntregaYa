@@ -3,6 +3,7 @@ import List from "../components/List";
 import { getMenus } from "../services/menuService";
 import { Menu } from "../models/Menu";
 import { Edit, Trash2 } from "lucide-react";
+import { string } from "yup";
 
 const MenuList: React.FC = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
@@ -11,19 +12,21 @@ const MenuList: React.FC = () => {
     const fetchMenus = async () => {
       const data = await getMenus();
       setMenus(data);
+      console.log("Menus:", data[0]["availability"]);
+      
     };
 
     fetchMenus();
   }, []);
-  
+
   const titulo = "List Menus";
 
   const columnas = [
-    { name: "id", type: "string" },
-    { name: "price", type: "number" },
-    { name: "availability", type: "number" },
-    { name: "restaurant", type: "object" },
-    { name: "products", type: "array" },
+    { name: "id", type: "string",text:"ID" },
+    { name: "price", type: "number",text:"PRECIO" },
+    { name: "availability", type: "boolean",text:"DISPONIBLE" },
+    { name: `product`,attribute:"name", type: "object" ,text:"PRODUCTO" },
+
   ];
 
   const acciones = [

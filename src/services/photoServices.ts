@@ -2,7 +2,7 @@ import { Photo } from "../models/Photo";
 import api from "../interceptors/axiosInterceptor";
 
 const ENDPOINT = "/photos";
-
+    
 // Obtener todas las fotos
 export const getPhotos = async (): Promise<Photo[]> => {
     try {

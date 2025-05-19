@@ -18,14 +18,14 @@ const RestaurantList: React.FC = () => {
     fetchRestaurants();
   }, []);
   
-  const titulo = "List Restaurants";
+  const titulo = "Lista de restaurantes";
 
   const columnas = [
-    { name: "id", type: "string" },
-    { name: "name", type: "string" },
-    { name: "address", type: "string" },
-    { name: "phone", type: "string" },
-    { name: "email", type: "string" },
+    { name: "id", type: "string" ,text:"ID" },
+    { name: "name", type: "string",text:"NOMBRE" },
+    { name: "address", type: "string",text:"DIRECCION" },
+    { name: "phone", type: "string",text:"TELEFONO" },
+    { name: "email", type: "string",text:"EMAIL" },
   ];
 
   const acciones = [
@@ -43,6 +43,7 @@ const RestaurantList: React.FC = () => {
 
   return (
     <List
+      titulo={titulo}
       datos={restaurants}
       columnas={columnas}
       acciones={acciones}

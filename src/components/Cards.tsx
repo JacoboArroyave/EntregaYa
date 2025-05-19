@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 interface CardsProps {
-  title: string;
   data: any[];
   handleClick: (element: any) => void;
 
@@ -9,9 +8,10 @@ interface CardsProps {
   secondAtribute: { attribute: string; icon?: string };
   thirdAtribute?: { attribute: string; icon?: string };
   button: string;
+  urlPhoto:string
 }
 
-const Card: React.FC<CardsProps> = ({ title, data, handleClick, firstAtribute, secondAtribute, thirdAtribute, button }) => {
+const Card: React.FC<CardsProps> = ({ urlPhoto, data, handleClick, firstAtribute, secondAtribute, thirdAtribute, button }) => {
   return (
     <div className="flex flex-wrap gap-8 justify-center px-6 py-8">
       {data.map((item: any) => (
@@ -20,7 +20,7 @@ const Card: React.FC<CardsProps> = ({ title, data, handleClick, firstAtribute, s
           className="bg-white w-72 rounded-2xl shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-1 duration-300 cursor-pointer border border-orange-100"
         >
           <img
-            src="https://images.ctfassets.net/trvmqu12jq2l/6FV4Opt7wUyR91t2FXyOIr/f32972fce10fc87585e831b334ea17ef/header.jpg"
+          src={urlPhoto }
             alt="Restaurant"
             className="w-full h-44 object-cover rounded-t-2xl"
           />

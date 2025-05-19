@@ -19,10 +19,10 @@ const ProductList: React.FC = () => {
   const titulo = "List Products";
 
   const columnas = [
-    { name: "id", type: "string" },
-    { name: "name", type: "string" },
-    { name: "description", type: "string" },
-    { name: "category", type: "string" },
+    { name: "id", type: "string",text:"ID" },
+    { name: "name", type: "string",text:"NOMBRE" },
+    { name: "description", type: "string" ,text:"DESCRIPCION" },
+    { name: "category", type: "string" ,text:"CATEGORIA" },
   ];
 
   const acciones = [
