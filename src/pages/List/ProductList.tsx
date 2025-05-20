@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List";
-import { getProducts } from "../services/productService";
-import { Product } from "../models/Product";
+import List from "../../components/List";
+import { getProducts, deleteProduct } from "../../services/productService";
+import { Product } from "../../models/Product";
 import { Edit, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,11 +33,32 @@ const ProductList: React.FC = () => {
     { nombre: "eliminar", etiqueta: "Eliminar", icon: Trash2 },
   ];
 
-  const handleAccion = (accion: string, item: Product) => {
+  const handleAccion = async (accion: string, data: Product) => {
     if (accion === "editar") {
-      console.log("Editar:", item);
+      navigate("/action-product", {
+        state: {
+          data,
+          proceso: "editar",
+        },
+      });
     } else if (accion === "eliminar") {
-      console.log("Eliminar:", item);
+      const response = await deleteProduct(data.id);
+      if (response) {
+        Swal.fire({
+          title: "Completado",
+          text: `Se ha eliminado el producto correctamente`,
+          icon: "success",
+          timer: 3000
+        });
+        window.location.reload();
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: `Hubo un problema al eliminar el producto`,
+          icon: "error",
+          timer: 3000
+        });
+      }
     }
   };
 
@@ -45,6 +69,7 @@ const ProductList: React.FC = () => {
       columnas={columnas}
       acciones={acciones}
       onAccion={handleAccion}
+      url="/action-product"
     />
   );
 };

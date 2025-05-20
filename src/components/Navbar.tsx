@@ -1,30 +1,45 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import LogoutButton from "./Logout";
-import { Bell, Menu, X, ShoppingBag, MapPin } from "lucide-react";
+import UserProfile from "./UserProfile";
+import { Bell, Menu, X, ShoppingBag, MapPin, Truck } from "lucide-react";
+import {
+  User,
+  BookUser,
+  Settings,
+  LogOut,
+} from "lucide-react";
 
-const socket = io("http://127.0.0.1:5000");
+// Conexión al socket
+// const socket = io("http://127.0.0.1:8000");
+
 
 const Navbar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, setSidebarOpen: (open: boolean) => void }) => {
   const [notifications, setNotifications] = useState(0);
   const [currentLocation, setCurrentLocation] = useState("Seleccionar ubicación");
 
-  const navItems = [
-    { name: "Restaurantes", href: "/restaurantes" },
-  ];
 
-  useEffect(() => {
-    socket.on("new_notification", (data) => {
-      console.log("Nueva notificación:", JSON.stringify(data));
-      setNotifications((prev) => prev + 1);
-    });
+  // const [currentLocation, setCurrentLocation] = useState("Seleccionar ubicación");
 
-    return () => {
-      socket.off("new_notification");
-    };
-  }, []);
+  const navItems = [{ name: "Restaurantes", href: "/restaurantes" }];
 
-  const clearNotifications = () => setNotifications(0);
+  // useEffect(() => {
+  //   socket.on("new_notification", (data) => {
+  //     console.log("Nueva notificación:", JSON.stringify(data));
+  //     setNotifications((prev) => prev + 1);
+  //   });
+
+  //   return () => {
+  //     socket.off("new_notification");
+  //   };
+  // }, []);
+
+
+
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
     <nav className="fixed top-0 right-0 left-0 lg:left-72 bg-orange-600 shadow-md z-40">
@@ -46,6 +61,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, setSide
             <div className="flex items-center text-white bg-orange-800 px-3 py-1 rounded-full max-w-xs">
               <MapPin size={16} className="mr-1" />
               <span className="text-sm truncate">{currentLocation}</span>
+
             </div>
           </div>
 
@@ -71,10 +87,12 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, setSide
 
             <div className="ml-2">
               <LogoutButton />
+
             </div>
           </div>
         </div>
       </div>
+
     </nav>
   );
 };

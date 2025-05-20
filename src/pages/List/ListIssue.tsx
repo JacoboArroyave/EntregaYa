@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List";
+import List from "../../components/List";
 import { Edit, Trash2 } from "lucide-react";
-import { getIssues } from "../services/IssueServices";
-import { Issue } from "../models/Issue";
+import { getIssues } from "../../services/IssueServices";
+import { Issue } from "../../models/Issue";
 
 const AddressList: React.FC = () => {
   const [Issues, setIssues] = useState<Issue[]>([]);

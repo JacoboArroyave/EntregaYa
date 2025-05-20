@@ -2,6 +2,7 @@
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/UserSlice";
 import { useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react"; // Icono opcional
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
@@ -15,8 +16,10 @@ const LogoutButton = () => {
   return (
     <button
       onClick={handleLogout}
-      className="bg-orange-700 text-orange-100 font-medium hover:bg-orange-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-300 active:bg-orange-800 px-4 py-2 rounded-md text-sm shadow-sm transition-all duration-200 ease-in-out"
+
+      className="flex items-center gap-2 text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-4 py-2 rounded-lg text-sm shadow-md hover:shadow-lg transition-all duration-200"
     >
+      <LogOut size={16} />
       Cerrar sesión
     </button>
   );

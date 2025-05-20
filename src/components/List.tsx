@@ -8,6 +8,9 @@ interface ListProps {
   onAccion: (accion: string, item: any) => void;
   titulo?: string;
   emptyMessage?: string;
+
+  url: string;
+
 }
 
 const List: React.FC<ListProps> = ({
@@ -15,25 +18,37 @@ const List: React.FC<ListProps> = ({
   columnas,
   acciones,
   onAccion,
+  url,
   titulo = "Menú Disponible",
   emptyMessage = "No hay platillos disponibles",
 }) => {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-  const [activeTooltip, setActiveTooltip] = useState<{index: number, action: string} | null>(null);
+
+  const [activeTooltip, setActiveTooltip] = useState<{ index: number, action: string } | null>(null);
+  const navigate = useNavigate();
 
   const headerGradient = "bg-gradient-to-r from-red-500 via-orange-500 to-yellow-400";
-
+const proceso="Crear"
   return (
     <div className="rounded-xl bg-white shadow-xl overflow-hidden border-0 relative">
       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-orange-400 to-yellow-400"></div>
 
       <div className={`px-8 py-5 ${headerGradient}`}>
-        <h3 className="font-bold text-xl text-white tracking-wide flex items-center">
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-          </svg>
-          {titulo}
-        </h3>
+        <div className="flex justify-between items-center">
+          <h3 className="font-bold text-xl text-white tracking-wide flex items-center">
+            {titulo}
+          </h3>
+          <button
+            onClick={() => navigate(url, { state: {proceso} })}
+            className="ml-4 bg-white text-red-600 rounded-full p-2 shadow-md hover:bg-red-100 transition"
+            title="Agregar nuevo"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </button>
+        </div>
+
       </div>
 
       {/* Tabla para pantallas md+ */}
@@ -54,11 +69,10 @@ const List: React.FC<ListProps> = ({
               {datos.length > 0 ? datos.map((item, index) => (
                 <tr
                   key={index}
-                  className={`transition-all duration-300 ${
-                    hoveredRow === index 
-                      ? "bg-amber-50/70 shadow-sm" 
+                  className={`transition-all duration-300 ${hoveredRow === index
+                      ? "bg-amber-50/70 shadow-sm"
                       : "bg-white hover:bg-amber-50/30"
-                  }`}
+                    }`}
                   onMouseEnter={() => setHoveredRow(index)}
                   onMouseLeave={() => setHoveredRow(null)}
                 >
@@ -66,27 +80,28 @@ const List: React.FC<ListProps> = ({
                     <td key={col.name} className="px-6 py-4 whitespace-nowrap">
                       {col.type === "image" ? (
                         <div className="p-1 bg-gradient-to-br from-yellow-200 to-amber-300 rounded-full inline-block">
-                          <img 
-                            src={item[col.name]} 
-                            alt="Platillo" 
+                          <img
+                            src={item[col.name]}
+                            alt="Platillo"
                             className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm"
                           />
                         </div>
                       ) : col.type === "price" ? (
                         <div className="font-medium text-amber-800 bg-amber-50 px-4 py-1 rounded-full inline-block shadow-sm">
-                          ${typeof item[col.name] === 'number' 
-                            ? item[col.name].toFixed(2) 
+                          ${typeof item[col.name] === 'number'
+                            ? item[col.name].toFixed(2)
                             : item[col.name]}
                         </div>
                       ) : col.type === "boolean" ? (
                         <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-amber-50 to-amber-100 text-amber-800 shadow-sm border border-amber-200/50">
-                          {item[col.name]=== true ? "Sí" : "No"}
+                          {item[col.name] === true ? "Sí" : "No"}
                         </span>
                       ) : col.type === "object"? (
                         <span className="text-gray-800 font-medium">{item[col.name][col.attribute]}</span>
                       ) : col.type === "doubleObject"? (
                         <span className="text-gray-800 font-medium">{item[col.name][col.attribute][col.secondAttribute]}</span>
                       ) : (
+
                         <span className="text-gray-800 font-medium">{item[col.name]}</span>
                       )}
                     </td>
@@ -98,17 +113,16 @@ const List: React.FC<ListProps> = ({
                           <div className="relative" key={accion.nombre}>
                             <button
                               onClick={() => onAccion(accion.nombre, item)}
-                              onMouseEnter={() => setActiveTooltip({index, action: accion.nombre})}
+                              onMouseEnter={() => setActiveTooltip({ index, action: accion.nombre })}
                               onMouseLeave={() => setActiveTooltip(null)}
-                              className={`text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 transform hover:scale-110 hover:shadow-lg active:scale-95 ${
-                                accion.nombre.toLowerCase().includes('delete') || accion.nombre.toLowerCase().includes('eliminar')
-                                  ? 'bg-gradient-to-br from-red-400 to-red-600 hover:from-red-500 hover:to-red-700' 
+                              className={`text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 transform hover:scale-110 hover:shadow-lg active:scale-95 ${accion.nombre.toLowerCase().includes('delete') || accion.nombre.toLowerCase().includes('eliminar')
+                                  ? 'bg-gradient-to-br from-red-400 to-red-600 hover:from-red-500 hover:to-red-700'
                                   : accion.nombre.toLowerCase().includes('edit') || accion.nombre.toLowerCase().includes('editar')
                                     ? 'bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700'
                                     : accion.nombre.toLowerCase().includes('view') || accion.nombre.toLowerCase().includes('ver')
                                       ? 'bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700'
                                       : 'bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-500 to-orange-700'
-                              }`}
+                                }`}
                             >
                               <accion.icon size={18} className="drop-shadow-sm" />
                             </button>
@@ -126,8 +140,8 @@ const List: React.FC<ListProps> = ({
                 </tr>
               )) : (
                 <tr>
-                  <td 
-                    colSpan={columnas.length + (acciones.length > 0 ? 1 : 0)} 
+                  <td
+                    colSpan={columnas.length + (acciones.length > 0 ? 1 : 0)}
                     className="px-6 py-10 text-center text-amber-800 bg-gradient-to-b from-amber-50/80 to-amber-50/30"
                   >
                     <div className="flex flex-col items-center justify-center py-8">

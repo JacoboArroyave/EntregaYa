@@ -62,6 +62,9 @@ const Login = () => {
           }
 
           store.dispatch(setCustomer(customer));
+
+          localStorage.setItem('google_token', credential);
+          // localStorage.setItem('user', JSON.stringify(decoded));
           store.dispatch(setUser(decoded));
 
           // Guardar en localStorage

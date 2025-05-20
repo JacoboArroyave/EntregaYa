@@ -1,12 +1,12 @@
 // AddressCreate
-import { Address } from "../models/Address";
-import { createAddress } from "../services/addressService";
+import { Address } from "../../models/Address";
+import { createAddress } from "../../services/addressService";
 import * as Yup from "yup";
-import FormComponent from "../components/FormComponent";
+import FormComponent from "../../components/FormComponent";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import NotificationAlert from "../components/NotificationAlert";
+import NotificationAlert from "../../components/NotificationAlert";
 import { useState } from "react";
 
 const CreateAddressPage = () => {

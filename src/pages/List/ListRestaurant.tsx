@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getRestaurants } from "../services/restaurantService";
-import { Restaurant } from "../models/Restaurant";
-import Cards from "../components/Cards";
+import { getRestaurants } from "../../services/restaurantService";
+import { Restaurant } from "../../models/Restaurant";
+import Cards from "../../components/Cards";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const ListRestaurant: React.FC = () => {
@@ -10,7 +10,9 @@ const ListRestaurant: React.FC = () => {
     useEffect(() => {
         const fetchRestaurants = async () => {
           const data = await getRestaurants();
+          console.log(data);
           setRestaurants(data);
+          
           
         };
 

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List";
-import { getMenus } from "../services/menuService";
-import { Menu } from "../models/Menu";
+import List from "../../components/List";
+import { getMenus, deleteMenu } from "../../services/menuService";
+import { Menu } from "../../models/Menu";
 import { Edit, Trash2 } from "lucide-react";
 import { string } from "yup";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const MenuList: React.FC = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -26,6 +29,7 @@ const MenuList: React.FC = () => {
     { name: "price", type: "number",text:"PRECIO" },
     { name: "availability", type: "boolean",text:"DISPONIBLE" },
     { name: `product`,attribute:"name", type: "object" ,text:"PRODUCTO" },
+    { name: `restaurant`,attribute:"name", type: "object" ,text:"RESTAURANTE" },
 
   ];
 
@@ -34,11 +38,32 @@ const MenuList: React.FC = () => {
     { nombre: "eliminar", etiqueta: "Eliminar", icon: Trash2 },
   ];
 
-  const handleAccion = (accion: string, item: Menu) => {
+  const handleAccion = async (accion: string, data: Menu) => {
     if (accion === "editar") {
-      console.log("Editar:", item);
+      navigate("/action-menu", {
+        state: {
+          data,
+          
+        },
+      });
     } else if (accion === "eliminar") {
-      console.log("Eliminar:", item);
+      const response = await deleteMenu(Number(data.id));
+      if (response) {
+        Swal.fire({
+          title: "Completado",
+          text: `Se ha eliminado el menú correctamente`,
+          icon: "success",
+          timer: 3000
+        });
+        window.location.reload();
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: `Hubo un problema al eliminar el menú`,
+          icon: "error",
+          timer: 3000
+        });
+      }
     }
   };
 
@@ -49,6 +74,7 @@ const MenuList: React.FC = () => {
       columnas={columnas}
       acciones={acciones}
       onAccion={handleAccion}
+      url="/action-menu"
     />
   );
 };

@@ -9,7 +9,7 @@ const TrackingMap: React.FC<{ plate: string }> = ({ plate }) => {
 
   useEffect(() => {
     // Crear socket
-    const newSocket = io("http://127.0.0.1:8000");
+    const newSocket = io("http://127.0.0.1:5000");
 
     // Guardar para limpiar luego
     setSocket(newSocket);

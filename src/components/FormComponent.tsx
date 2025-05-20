@@ -44,49 +44,61 @@ const FormComponent: React.FC<MyFormProps> = ({
       {({ handleSubmit }) => (
         <Form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 gap-4 p-6 bg-white rounded-md shadow-md"
+          className="max-w-xl mx-auto bg-[--card-bg-color] text-[--text-color] p-8 rounded-2xl shadow-xl"
+          style={{ backgroundColor: "var(--card-bg-color)", color: "var(--text-color)" }}
         >
-          {labels.map((label: any) => (
-            <div key={label.for}>
-              {label.type === "select" ? (
-                <SelectField
-                  name={label.for}
-                  label={label.text}
-                  options={label.options}
-                />
-              ) : (
-                <>
-                  <label
-                    htmlFor={label.for}
-                    className="block text-lg font-medium text-gray-700"
-                  >
-                    {label.text}
-                  </label>
-                  <Field
-                    type={label.type}
-                    name={label.for}
-                    className="w-full border rounded-md p-2"
-                  />
-                  <ErrorMessage
-                    name={label.for}
-                    component="p"
-                    className="text-red-500 text-sm"
-                  />
-                </>
-              )}
-            </div>
-          ))}
+          <h2 className="text-2xl font-bold mb-6 text-center">
+            {mode === 1 ? "Crear Nuevo Registro" : "Actualizar Registro"}
+          </h2>
 
-          <button
-            type="submit"
-            className={`py-2 px-4 text-black rounded-md ${
-              mode === 1
-                ? "bg-blue-500 hover:bg-blue-600"
-                : "bg-green-500 hover:bg-green-600"
-            }`}
-          >
-            {mode === 1 ? "Crear" : "Actualizar"}
-          </button>
+          <div className="space-y-5">
+            {labels.map((label: any) => (
+              <div key={label.for}>
+                {label.type === "select" ? (
+                  <SelectField
+                    name={label.for}
+                    label={label.text}
+                    options={label.options}
+                  />
+                ) : (
+                  <>
+                    <label
+                      htmlFor={label.for}
+                      className="block text-sm font-medium mb-1"
+                    >
+                      {label.text}
+                    </label>
+                    <Field
+                      type={label.type}
+                      name={label.for}
+                      className="w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[--primary-color] rounded-md px-4 py-2 bg-white"
+                    />
+                    <ErrorMessage
+                      name={label.for}
+                      component="p"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 text-center">
+            <button
+              type="submit"
+              className={`px-6 py-2 rounded-lg font-semibold shadow-md transition-all duration-200 
+                ${mode === 1
+                  ? "bg-[--primary-color] hover:bg-[--button-hover] text-white"
+                  : "bg-[--secondary-color] hover:brightness-90 text-white"
+                }`}
+              style={{
+                backgroundColor: mode === 1 ? "var(--primary-color)" : "var(--secondary-color)",
+              }}
+            >
+              {mode === 1 ? "Crear" : "Actualizar"}
+            </button>
+          </div>
         </Form>
       )}
     </Formik>
