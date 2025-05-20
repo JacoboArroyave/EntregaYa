@@ -20,6 +20,7 @@ const CustomerList = lazy(() => import('../pages/List/CustomerList'));
 const ProductCards = lazy(() => import('../pages/ProductCards'));
 const OrderList = lazy(() => import('../pages/List/OrderList'));
 const PhotoList = lazy(() => import('../pages/List/ListPhotos'));
+const OrderUpdate = lazy(() => import('../pages/Update/Order'));
 const MapTracking = lazy(() => import('../pages/TrackingPage'));
 const AdressAction = lazy(() => import('../pages/Create/AddressAction'));
 const MenuAction = lazy(() => import('../pages/Create/MenuAction'));
@@ -37,6 +38,11 @@ const coreRoutes = [
     path: '/action-motorcycle',
     title: 'Motorcycle Action',
     component: MotorcycleAction,
+  },
+  {
+    path: '/update-Order',
+    title: 'Motorcycle Action',
+    component: OrderUpdate,
   },
   {
     path: '/action-menu',

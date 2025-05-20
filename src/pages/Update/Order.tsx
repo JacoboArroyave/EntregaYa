@@ -13,17 +13,14 @@ const OrderUpdate = () => {
     const location = useLocation();
     const { data } = location.state || {};
 
-    const [customers, setCustomers] = useState<any[]>([]);
     const [menus, setMenus] = useState<any[]>([]);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const [customerData, menuData] = await Promise.all([
-                    getCustomers(),
+                const [ menuData] = await Promise.all([
                     getMenus(),
                 ]);
-                setCustomers(customerData);
                 setMenus(menuData);
             } catch (error) {
                 console.error("Error cargando datos:", error);
@@ -32,9 +29,17 @@ const OrderUpdate = () => {
         fetchData();
     }, []);
 
-    if (!customers.length || !menus.length) {
+    if ( !menus.length) {
         return <p>Cargando datos...</p>;
     }
+    const getRestaurantName = (id: number) => {
+        const m = menus.find((menu) => menu.id === id);
+        return m?.restaurant.name || "Desconocida";
+    };
+    const getProductName = (id: number) => {
+        const m = menus.find((menu) => menu.id === id);
+        return m?.product.name || "Desconocida";
+    };
 
     const labels = [
         { for: "quantity", text: "Cantidad", type: "number" },
@@ -45,9 +50,9 @@ const OrderUpdate = () => {
             for: "restaurant",
             text: "Restaurante",
             type: "select",
-            options: restaurants.map((s) => ({
+            options: menus.map((s) => ({
                 value: s.id,
-                label: `${getRestaurantName(s.id)} `,
+                label: `${getRestaurantName(s.id)} - ${getProductName(s.id)}`,
             })),
         },
     ];
