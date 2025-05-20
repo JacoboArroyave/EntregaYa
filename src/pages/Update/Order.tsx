@@ -18,10 +18,9 @@ const OrderUpdate = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const [ menuData] = await Promise.all([
-                    getMenus(),
-                ]);
+                const menuData = await getMenus();
                 setMenus(menuData);
+                console.log("Menus:", data);
             } catch (error) {
                 console.error("Error cargando datos:", error);
             }
@@ -29,7 +28,7 @@ const OrderUpdate = () => {
         fetchData();
     }, []);
 
-    if ( !menus.length) {
+    if (!menus.length) {
         return <p>Cargando datos...</p>;
     }
     const getRestaurantName = (id: number) => {
@@ -43,7 +42,7 @@ const OrderUpdate = () => {
 
     const labels = [
         { for: "quantity", text: "Cantidad", type: "number" },
-        { for: "totalPrice", text: "Precio Total", type: "number" },
+        { for: "total_price", text: "Precio Total", type: "number" },
         { for: "status", text: "Estado", type: "text" },
         { for: "motorcycle_id", text: "ID Moto", type: "number" },
         {
@@ -59,31 +58,29 @@ const OrderUpdate = () => {
 
     const initialValuesProps = {
         quantity: data ? data.quantity : 1,
-        totalPrice: data ? data.totalPrice : 0,
+        total_price: data ? data.total_price : 1,
         status: data ? data.status : "pendiente",
         motorcycle_id: data ? data.motorcycle_id : 0,
     };
 
     const validationSchema = Yup.object({
         quantity: Yup.number().min(1, "Debe ser mayor a 0").required("Requerido"),
-        totalPrice: Yup.number().min(0, "Debe ser mayor o igual a 0").required("Requerido"),
+        total_price: Yup.number().min(0, "Debe ser mayor o igual a 0").required("Requerido"),
         status: Yup.string().required("El estado es obligatorio"),
         motorcycle_id: Yup.number().required("Selecciona una moto"),
     });
 
     const handleAction = async (values: any) => {
         const newOrder: Order = {
-            id: data ? data.id : undefined,
+            id: data ? data.id : undefined, 
             quantity: values.quantity,
-            totalPrice: values.totalPrice,
+            total_price: values.total_price,
             status: values.status,
             motorcycle_id: values.motorcycle_id,
         };
         try {
             if (data) {
                 await updateOrder(data.id, newOrder);
-            } else {
-                await createOrder(newOrder);
             }
             navigate("/list-order");
         } catch (error) {

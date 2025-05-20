@@ -14,7 +14,7 @@ const TrackingPage: React.FC = () => {
   const [trackingActive, setTrackingActive] = useState(false);
 
   if (!plate) {
-    // Si no hay placa, redirigir o mostrar mensaje
+    // Si no hay placa, redirigir o mostr ar mensaje
     return (
       <div className="p-4">
         <p>No se ha especificado una placa para el seguimiento.</p>
