@@ -3,10 +3,14 @@ import List from "../../components/List";
 import { Edit, Trash2 } from "lucide-react";
 import { getOrders } from "../../services/orderServices";
 import { Order } from "../../models/Order";
+import { Truck } from "lucide-react";
 import { getMotorcycleById } from "../../services/motorcycleService";
+import { useNavigate } from "react-router-dom";
+
 
 const DriverList: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
+    const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -20,7 +24,7 @@ const DriverList: React.FC = () => {
     fetchOrders();
   }, []);
   
-  const titulo = "List Drivers"
+  const titulo = "List Orders"
 
  
   const columnas = [
@@ -36,15 +40,35 @@ const DriverList: React.FC = () => {
   const acciones = [
     { nombre: "editar", etiqueta: "Editar", icon: Edit },
     { nombre: "eliminar", etiqueta: "Eliminar", icon: Trash2 },
+    { nombre: "seguir-pedido", etiqueta: "Seguir Pedido", icon: Truck },
   ];
 
-  const handleAccion = (accion: string, item: Order) => {
-    if (accion === "editar") {
-      console.log("Editar:", item);
-    } else if (accion === "eliminar") {
-      console.log("Eliminar:", item);
+  const handleAccion = async (accion: string, item: Order) => {
+  if (accion === "editar") {
+    console.log("Editar:", item);
+  } else if (accion === "eliminar") {
+    console.log("Eliminar:", item);
+  } else if (accion === "seguir-pedido") {
+    console.log("Seguir pedido:", item);
+
+    if (item.motorcycle_id) {
+      const moto = await getMotorcycleById(item.motorcycle_id);
+      if (moto) {
+        const plate = moto.license_plate;
+        navigate("/MapTracking", {
+          state: {
+            plate: plate,
+          },
+        });
+      } else {
+        alert("Hubo un error al obtener la información de la moto.");
+      }
+    } else {
+      alert("Este pedido no tiene moto asignada.");
     }
-  };
+  }
+};
+
 
   return (
     <List

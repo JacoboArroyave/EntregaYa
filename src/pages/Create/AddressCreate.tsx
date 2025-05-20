@@ -12,7 +12,7 @@ import { useState } from "react";
 const CreateAddressPage = () => {
   const location = useLocation();
   const { id: orderId, plate } = location.state || {};
-  const navigate = useNavigate(); // ← usar navigate
+  const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState(false);
 
   const initialValues: Omit<Address, "id"> = {

@@ -8,7 +8,6 @@ const ListMenu = lazy(() => import('../pages/List/MenuList'));
 const ListMotorcycle = lazy(() => import('../pages/List/MotorcycleList'));
 const ListProduct = lazy(() => import('../pages/List/ProductList'));
 const ListAddress = lazy(() => import('../pages/List/ListAddress'));
-const ListOrders = lazy(() => import('../pages/List/ListOrders'));
 const CreateAdress = lazy(() => import('../pages/Create/AddressCreate'));
 const ActionDriver = lazy(() => import('../pages/Create/DriverAction'));
 const Order = lazy(() => import('../pages/Create/OrderAction'));
@@ -84,12 +83,6 @@ const coreRoutes = [
     path: '/list-customer',
     title: 'Customer List',
     component: CustomerList,
-  },
-
-  {
-    path: '/list-orders',
-    title: 'List Orders',
-    component: ListOrders,
   },
   {
     path: '/products/:id',
