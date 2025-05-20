@@ -1,5 +1,6 @@
 import { LucideProps } from "lucide-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ListProps {
   datos: any[];

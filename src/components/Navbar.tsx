@@ -17,7 +17,7 @@ import {
 const Navbar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, setSidebarOpen: (open: boolean) => void }) => {
   const [notifications, setNotifications] = useState(0);
   const [currentLocation, setCurrentLocation] = useState("Seleccionar ubicación");
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // const [currentLocation, setCurrentLocation] = useState("Seleccionar ubicación");
 
@@ -34,11 +34,9 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, setSide
   //   };
   // }, []);
 
-
-
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  // Función para limpiar notificaciones
+  const clearNotifications = () => {
+    setNotifications(0);
   };
 
   return (
@@ -94,6 +92,9 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, setSide
       </div>
 
     </nav>
+    // function setIsMobileMenuOpen(arg0: boolean) {
+    //   throw new Error("Function not implemented.");
+    // }
   );
 };
 
