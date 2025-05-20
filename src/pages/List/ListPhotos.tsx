@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List";
+import List from "../../components/List";
 import { Edit, Trash2 } from "lucide-react";
-import { Photo } from "../models/Photo";
-import { getPhotos } from "../services/photoServices";
-import PhotoGallery from "../components/GalleryPhotos";
+import { Photo } from "../../models/Photo";
+import { getPhotos } from "../../services/photoServices";
+import PhotoGallery from "../../components/GalleryPhotos";
 
 const AddressList: React.FC = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);

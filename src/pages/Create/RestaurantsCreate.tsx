@@ -1,15 +1,18 @@
-import { useNavigate, } from "react-router-dom";
-import { Restaurant } from "../models/Restaurant";
-import { createRestaurant } from "../services/restaurantService";
+import { useLocation, useNavigate, } from "react-router-dom";
+import { Restaurant } from "../../models/Restaurant";
+import { createRestaurant, updateRestaurant } from "../../services/restaurantService";
 import Swal from 'sweetalert2';
-import FormComponent from "../components/FormComponent";
+import FormComponent from "../../components/FormComponent";
 import * as Yup from "yup";
 
 
 
-const App = () => {
-    console.log("hola");
 
+const App:React.FC = () => {
+    const location = useLocation();
+    const {data,proceso}=location.state||{};
+    console.log(data,proceso,"data");
+    
     const navigate = useNavigate();
     const validationschemaProps = () => {
         return Yup.object({
@@ -22,13 +25,15 @@ const App = () => {
         })
 
     }
-    const handleCreate = async (restaurant: Restaurant) => {
+    const handleAction = async (restaurant: Restaurant) => {
         try {
-            const createdRestaurant = await createRestaurant(restaurant);
+            console.log(data);
+            
+            const createdRestaurant =data? await updateRestaurant(data.id,restaurant):await createRestaurant(restaurant);
             if (createdRestaurant) {
                 Swal.fire({
                     title: "Completado",
-                    text: "Se ha creado correctamente el registro",
+                    text: `Se ha creado ${proceso} el registro`,
                     icon: "success",
                     timer: 3000
                 })
@@ -39,7 +44,7 @@ const App = () => {
                 
                 Swal.fire({
                     title: "Error",
-                    text: "Existe un problema al momento de crear el registro",
+                    text: `Existe un problema al momento de ${proceso} el registro` ,
                     icon: "error",
                     timer: 3000
                 })
@@ -49,7 +54,7 @@ const App = () => {
             
             Swal.fire({
                 title: "Error",
-                text: "Error al crear el restaurante",
+                text: `Error al ${proceso} el restaurante`,
                 icon: "error",
                 timer: 3000
             })
@@ -58,10 +63,21 @@ const App = () => {
     }
     return (
         <div >
-            <h2>Create Restaurant</h2>
+            {data?
             <FormComponent
+                mode={2}
+                handleUpdate={handleAction}
+                initialValuesProps={{ name: data.name, address: data.address, phone: data.phone, email: data.email }}
+                validetionSchemaProps={validationschemaProps}
+                labels={[
+                    { for: "name", text: "Nombre", type: "text" },
+                    { for: "address", text: "Direccion", type: "text" },
+                    { for: "phone", text: "Telefono", type: "text" },
+                    { for: "email", text: "Email", type: "text" }
+                ]}
+            />:<FormComponent
                 mode={1}
-                handleCreate={handleCreate}
+                handleCreate={handleAction}
                 initialValuesProps={{ name: "", address: "", phone: "", email: "" }}
                 validetionSchemaProps={validationschemaProps}
                 labels={[
@@ -70,7 +86,8 @@ const App = () => {
                     { for: "phone", text: "Telefono", type: "text" },
                     { for: "email", text: "Email", type: "text" }
                 ]}
-            />
+            />}
+            
         </div>
     );
 }

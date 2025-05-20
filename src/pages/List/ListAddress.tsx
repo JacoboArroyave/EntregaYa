@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List";
-import { getAddresses } from "../services/addressService";
-import { Address } from "../models/Address";
+import List from "../../components/List";
+import { getAddresses } from "../../services/addressService";
+import { Address } from "../../models/Address";
 import { Edit, Trash2 } from "lucide-react";
 
 const AddressList: React.FC = () => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List";
+import List from "../../components/List";
 import { Edit, Trash2 } from "lucide-react";
-import { getOrders } from "../services/orderServices";
-import { Order } from "../models/Order";
-import { getMotorcycleById } from "../services/motorcycleService";
+import { getOrders } from "../../services/orderServices";
+import { Order } from "../../models/Order";
+import { getMotorcycleById } from "../../services/motorcycleService";
 
 const DriverList: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
@@ -25,10 +25,12 @@ const DriverList: React.FC = () => {
  
   const columnas = [
     { name: "id", type: "number",text:"ID" },
-    { name: "quantity", type: "string" ,text:"NOMBRE" },
+    { name: "quantity", type: "string" ,text:"Cantidad" },
     { name: "total_price", type: "number",text:"EMAIL" },
     { name: "motorcycle_id", type: "number",text:"Id moto" },
     { name: "menu",attribute:"product" ,secondAttribute:"name",type: "doubleObject",text:"Producto" },
+    { name: "menu",attribute:"restaurant" ,secondAttribute:"name",type: "doubleObject",text:"Restaurante" },
+    { name: "customer",attribute:"name" ,type: "object",text:"Cliente" },
   ];
 
   const acciones = [

@@ -51,7 +51,6 @@ const ProductCards: React.FC = () => {
 
   return (
     <Cards
-      title="hola"
       data={products}
       handleClick={handleClick}
       firstAtribute={{ attribute: "description" }}
