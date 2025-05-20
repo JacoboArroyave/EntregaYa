@@ -1,13 +1,16 @@
 import { LucideProps } from "lucide-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ListProps {
   datos: any[];
-  columnas: { name: string; type: string }[];
+  columnas: { name: string, attribute?: string, secondAttribute?: string, type: string, text: string }[];
   acciones: { nombre: string; etiqueta: string; icon: React.ElementType<LucideProps> }[];
   onAccion: (accion: string, item: any) => void;
   titulo?: string;
   emptyMessage?: string;
+  url: string;
+
 }
 
 const List: React.FC<ListProps> = ({
@@ -15,138 +18,135 @@ const List: React.FC<ListProps> = ({
   columnas,
   acciones,
   onAccion,
+  url,
   titulo = "Menú Disponible",
-  emptyMessage = "No hay platillos disponibles"
+  emptyMessage = "No hay platillos disponibles",
 }) => {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-  const [activeTooltip, setActiveTooltip] = useState<{index: number, action: string} | null>(null);
+  const [activeTooltip, setActiveTooltip] = useState<{ index: number, action: string } | null>(null);
+  const navigate = useNavigate();
 
-  // Mejorado: Gradiente más vibrante para el encabezado
   const headerGradient = "bg-gradient-to-r from-red-500 via-orange-500 to-yellow-400";
-  
+const proceso="Crear"
   return (
     <div className="rounded-xl bg-white shadow-xl overflow-hidden border-0 relative">
-      {/* Barra decorativa superior mejorada con animación sutil */}
       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-orange-400 to-yellow-400"></div>
-      
-      {/* Encabezado mejorado con más padding y mejor tipografía */}
+
       <div className={`px-8 py-5 ${headerGradient}`}>
-        <h3 className="font-bold text-xl text-white tracking-wide flex items-center">
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-          </svg>
-          {titulo}
-        </h3>
+        <div className="flex justify-between items-center">
+          <h3 className="font-bold text-xl text-white tracking-wide flex items-center">
+            {titulo}
+          </h3>
+          <button
+            onClick={() => navigate(url, { state: {proceso} })}
+            className="ml-4 bg-white text-red-600 rounded-full p-2 shadow-md hover:bg-red-100 transition"
+            title="Agregar nuevo"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </button>
+        </div>
+
       </div>
 
-      {/* Contenedor de tabla mejorado con fondo sutil */}
       <div className="p-5 bg-gradient-to-b from-orange-50/80 to-white">
         <div className="overflow-x-auto rounded-xl shadow-sm">
           <table className="w-full text-sm border-separate border-spacing-0 bg-white rounded-xl overflow-hidden">
             <thead>
               <tr className="bg-gradient-to-r from-amber-100/90 to-amber-50 text-amber-900 uppercase text-xs tracking-wider">
                 {columnas.map((item) => (
-                  <th 
-                    scope="col" 
-                    className="px-6 py-4 font-semibold text-left" 
-                    key={item.name}
-                  >
-                    {item.name}
-                  </th>
+                  <th key={item.name} className="px-6 py-4 font-semibold text-left">{item.text}</th>
                 ))}
                 {acciones.length > 0 && (
-                  <th scope="col" className="px-6 py-4 font-semibold text-center">
-                    ACCIONES
-                  </th>
+                  <th className="px-6 py-4 font-semibold text-center">ACCIONES</th>
                 )}
               </tr>
             </thead>
             <tbody className="divide-y divide-amber-100/50">
-              {datos.length > 0 ? (
-                datos.map((item, index) => (
-                  <tr
-                    className={`transition-all duration-300 ${
-                      hoveredRow === index 
-                        ? "bg-amber-50/70 shadow-sm" 
-                        : "bg-white hover:bg-amber-50/30"
+              {datos.length > 0 ? datos.map((item, index) => (
+                <tr
+                  key={index}
+                  className={`transition-all duration-300 ${hoveredRow === index
+                      ? "bg-amber-50/70 shadow-sm"
+                      : "bg-white hover:bg-amber-50/30"
                     }`}
-                    key={index}
-                    onMouseEnter={() => setHoveredRow(index)}
-                    onMouseLeave={() => setHoveredRow(null)}
-                  >
-                    {columnas.map((col) => (
-                      <td 
-                        className="px-6 py-4 whitespace-nowrap" 
-                        key={col.name}
-                      >
-                        {col.type === "image" ? (
-                          <div className="p-1 bg-gradient-to-br from-yellow-200 to-amber-300 rounded-full inline-block">
-                            <img 
-                              src={item[col.name]} 
-                              alt="Platillo" 
-                              className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm"
-                            />
-                          </div>
-                        ) : col.type === "price" ? (
-                          <div className="font-medium text-amber-800 bg-amber-50 px-4 py-1 rounded-full inline-block shadow-sm">
-                            ${typeof item[col.name] === 'number' 
-                              ? item[col.name].toFixed(2) 
-                              : item[col.name]}
-                          </div>
-                        ) : col.type === "category" ? (
-                          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-amber-50 to-amber-100 text-amber-800 shadow-sm border border-amber-200/50">
-                            {item[col.name]}
-                          </span>
-                        ) : (
-                          <span className="text-gray-800 font-medium">{item[col.name]}</span>
-                        )}
-                      </td>
-                    ))}
-                    {acciones.length > 0 && (
-                      <td className="px-6 py-4">
-                        <div className="flex justify-center items-center space-x-4">
-                          {acciones.map((accion) => (
-                            <div className="relative" key={accion.nombre}>
-                              <button
-                                onClick={() => onAccion(accion.nombre, item)}
-                                onMouseEnter={() => setActiveTooltip({index, action: accion.nombre})}
-                                onMouseLeave={() => setActiveTooltip(null)}
-                                className={`text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 transform hover:scale-110 hover:shadow-lg active:scale-95 ${
-                                  accion.nombre.toLowerCase().includes('delete') || accion.nombre.toLowerCase().includes('eliminar')
-                                    ? 'bg-gradient-to-br from-red-400 to-red-600 hover:from-red-500 hover:to-red-700' 
-                                    : accion.nombre.toLowerCase().includes('edit') || accion.nombre.toLowerCase().includes('editar')
-                                      ? 'bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700'
-                                      : accion.nombre.toLowerCase().includes('view') || accion.nombre.toLowerCase().includes('ver')
-                                        ? 'bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700'
-                                        : 'bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700'
-                                }`}
-                              >
-                                <accion.icon size={18} className="drop-shadow-sm" />
-                              </button>
-                              
-                              {/* Tooltip mejorado con animación */}
-                              {activeTooltip?.index === index && activeTooltip?.action === accion.nombre && (
-                                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-700 to-amber-800 text-amber-50 text-xs px-3 py-1.5 rounded-lg whitespace-nowrap z-10 shadow-lg animate-fadeIn">
-                                  {accion.etiqueta}
-                                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-amber-800 rotate-45"></div>
-                                </div>
-                              )}
-                            </div>
-                          ))}
+                  onMouseEnter={() => setHoveredRow(index)}
+                  onMouseLeave={() => setHoveredRow(null)}
+                >
+                  {columnas.map((col) => (
+                    <td key={col.name} className="px-6 py-4 whitespace-nowrap">
+                      {col.type === "image" ? (
+                        <div className="p-1 bg-gradient-to-br from-yellow-200 to-amber-300 rounded-full inline-block">
+                          <img
+                            src={item[col.name]}
+                            alt="Platillo"
+                            className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm"
+                          />
                         </div>
-                      </td>
-                    )}
-                  </tr>
-                ))
-              ) : (
+                      ) : col.type === "price" ? (
+                        <div className="font-medium text-amber-800 bg-amber-50 px-4 py-1 rounded-full inline-block shadow-sm">
+                          ${typeof item[col.name] === 'number'
+                            ? item[col.name].toFixed(2)
+                            : item[col.name]}
+                        </div>
+                      ) : col.type === "boolean" ? (
+                        <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-amber-50 to-amber-100 text-amber-800 shadow-sm border border-amber-200/50">
+                          {item[col.name] === true ? "Sí" : "No"}
+                        </span>
+                      ) : col.type === "object" ? (
+
+                        <span className="text-gray-800 font-medium">{item[col.name][col.attribute]}</span>
+                      ) : col.type === "doubleObject" ? (
+
+                        <span className="text-gray-800 font-medium">{item[col.name][col.attribute][col.secondAttribute]}</span>
+                      ) :
+                        <span className="text-gray-800 font-medium">{item[col.name]}</span>
+
+                      }
+                    </td>
+                  ))}
+                  {acciones.length > 0 && (
+                    <td className="px-6 py-4">
+                      <div className="flex justify-center items-center space-x-4">
+                        {acciones.map((accion) => (
+                          <div className="relative" key={accion.nombre}>
+                            <button
+                              onClick={() => onAccion(accion.nombre, item)}
+                              onMouseEnter={() => setActiveTooltip({ index, action: accion.nombre })}
+                              onMouseLeave={() => setActiveTooltip(null)}
+                              className={`text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 transform hover:scale-110 hover:shadow-lg active:scale-95 ${accion.nombre.toLowerCase().includes('delete') || accion.nombre.toLowerCase().includes('eliminar')
+                                  ? 'bg-gradient-to-br from-red-400 to-red-600 hover:from-red-500 hover:to-red-700'
+                                  : accion.nombre.toLowerCase().includes('edit') || accion.nombre.toLowerCase().includes('editar')
+                                    ? 'bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700'
+                                    : accion.nombre.toLowerCase().includes('view') || accion.nombre.toLowerCase().includes('ver')
+                                      ? 'bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700'
+                                      : 'bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-500 to-orange-700'
+                                }`}
+                            >
+                              <accion.icon size={18} className="drop-shadow-sm" />
+                            </button>
+                            {activeTooltip?.index === index && activeTooltip?.action === accion.nombre && (
+                              <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-700 to-amber-800 text-amber-50 text-xs px-3 py-1.5 rounded-lg whitespace-nowrap z-10 shadow-lg animate-fadeIn">
+                                {accion.etiqueta}
+                                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-amber-800 rotate-45"></div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </td>
+                  )}
+                </tr>
+              )) : (
                 <tr>
-                  <td 
-                    colSpan={columnas.length + (acciones.length > 0 ? 1 : 0)} 
+                  <td
+                    colSpan={columnas.length + (acciones.length > 0 ? 1 : 0)}
                     className="px-6 py-10 text-center text-amber-800 bg-gradient-to-b from-amber-50/80 to-amber-50/30"
                   >
                     <div className="flex flex-col items-center justify-center py-8">
                       <div className="w-16 h-16 mb-4 rounded-full bg-amber-100 flex items-center justify-center">
-                        <svg className="w-10 h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="w-10 h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                       </div>

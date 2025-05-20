@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as Yup from "yup";
 
-import FormComponent from "../components/FormComponent";
-import { getShifts } from "../services/shiftService";
-import { getDrivers } from "../services/driverService";
-import { getMotorcycles } from "../services/motorcycleService";
-import { createOrder } from "../services/orderServices";
+import FormComponent from "../../components/FormComponent";
+import { getShifts } from "../../services/shiftService";
+import { getDrivers } from "../../services/driverService";
+import { getMotorcycles } from "../../services/motorcycleService";
+import { createOrder } from "../../services/orderServices";
 
 const OrderCreate = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   // Recibimos datos enviados por location.state
-  const { menu_id, customer_id, precio_product } = location.state || {};
+  const { menu_id, customer_id, precio_product} = location.state || {};
 
   // Estados para datos de turnos, conductores y motos
   const [shifts, setShifts] = useState<any[]>([]);
@@ -121,7 +121,8 @@ const OrderCreate = () => {
       }
     } catch (error) {
       console.error(error);
-      alert("Error al crear la orden");
+      console.log("Error al crear la orden",error);
+      
     }
   };
 

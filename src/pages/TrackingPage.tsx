@@ -30,7 +30,7 @@ const TrackingPage: React.FC = () => {
 
   const iniciarSeguimiento = async () => {
     try {
-      await axios.post(`http://127.0.0.1:8000/motorcycles/track/${plate}`);
+      await axios.post(`http://127.0.0.1:5000/motorcycles/track/${plate}`);
       setTrackingActive(true);
     } catch (error) {
       console.error("Error al iniciar seguimiento:", error);
@@ -39,7 +39,7 @@ const TrackingPage: React.FC = () => {
 
   const pararSeguimiento = async () => {
     try {
-      await axios.post(`http://127.0.0.1:8000/motorcycles/stop/${plate}`);
+      await axios.post(`http://127.0.0.1:5000/motorcycles/stop/${plate}`);
       setTrackingActive(false);
     } catch (error) {
       console.error("Error al detener seguimiento:", error);

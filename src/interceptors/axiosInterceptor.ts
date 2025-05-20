@@ -4,7 +4,7 @@ import axios from "axios";
 const EXCLUDED_ROUTES = ["/login", "/register"];
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL3,
+    baseURL: import.meta.env.VITE_API_URL,
     headers: { "Content-Type": "application/json" },
 });
 
@@ -12,6 +12,8 @@ const api = axios.create({
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("google_token");
+        console.log(token);
+        
         // Verificar si la URL está en la lista de excluidas
         if (EXCLUDED_ROUTES.some((route) => config.url?.includes(route)) || !token) {
             return config;

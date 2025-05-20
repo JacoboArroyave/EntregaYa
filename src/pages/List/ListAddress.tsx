@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import List from "../components/List_prueba";
-import { getAddresses } from "../services/addressService";
-import { Address } from "../models/Address";
+import List from "../../components/List";
+import { getAddresses } from "../../services/addressService";
+import { Address } from "../../models/Address";
 import { Edit, Trash2 } from "lucide-react";
 
 const AddressList: React.FC = () => {
@@ -16,16 +16,16 @@ const AddressList: React.FC = () => {
     fetchAddresses();
   }, []);
 
-  const titulo = "List Addresses";
+  const titulo = "Lista de direcciones";
 
   const columnas = [
-    { name: "id", type: "number" },
-    { name: "street", type: "string" },
-    { name: "city", type: "string" },
-    { name: "state", type: "string" },
-    { name: "postal_code", type: "string" },
-    { name: "additional_info", type: "string" },
-    { name: "order_id", type: "number" },
+    { name: "id", type: "number",text:"ID" },
+    { name: "street", type: "string" ,text:"CALLE" },
+    { name: "city", type: "string" ,  text:"CIUDAD" },
+    { name: "state", type: "string" ,text:"ESTADO" },
+    { name: "postal_code", type: "string" ,text:"CODIGO POSTAL" },
+    { name: "additional_info", type: "string" ,text:"INFORMACION ADICIONAL" },
+    { name: "order_id", type: "number",text:"ID PEdido" },
   ];
 
   const acciones = [

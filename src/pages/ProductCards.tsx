@@ -37,6 +37,7 @@ const ProductCards: React.FC = () => {
       alert("Faltan datos");
       return;
     }
+
     
     // Navegamos pasando datos por location.state
     navigate("/order/create", {
@@ -50,12 +51,12 @@ const ProductCards: React.FC = () => {
 
   return (
     <Cards
-      title="hola"
       data={products}
       handleClick={handleClick}
       firstAtribute={{ attribute: "description" }}
       secondAtribute={{ attribute: "category", icon: "📍" }}
-      button="Agregar al carrito"
+      button="Comprar"
+      urlPhoto="https://media-cdn.tripadvisor.com/media/photo-s/16/2d/33/8f/el-restaurante-por-fuera.jpg"
     />
   );
 };

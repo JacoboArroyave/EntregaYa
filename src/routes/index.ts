@@ -2,20 +2,28 @@ import { Component } from "lucide-react";
 import { lazy } from "react";
 
 
-const ListRestaurant = lazy(() => import('../pages/RestaurantList'));
-const ListDriver = lazy(() => import('../pages/DriverList'));
-const ListMenu = lazy(() => import('../pages/MenuList'));
-const ListMotorcycle = lazy(() => import('../pages/MotorcycleList'));
-const ListProduct = lazy(() => import('../pages/ProductList'));
-const ListAddress = lazy(() => import('../pages/ListAddress'));
-const ListOrders = lazy(() => import('../pages/ListOrders'));
-const CreateAdress = lazy(() => import('../pages/AddressCreate'));
-const Order = lazy(() => import('../pages/OrderCreate'));
-const createRestaurant = lazy(() => import('../pages/RestaurantsCreate'));
+const ListRestaurant = lazy(() => import('../pages/List/RestaurantList'));
+const ListDriver = lazy(() => import('../pages/List/DriverList'));
+const ListMenu = lazy(() => import('../pages/List/MenuList'));
+const ListMotorcycle = lazy(() => import('../pages/List/MotorcycleList'));
+const ListProduct = lazy(() => import('../pages/List/ProductList'));
+const ListAddress = lazy(() => import('../pages/List/ListAddress'));
+const ListOrders = lazy(() => import('../pages/List/ListOrders'));
+const CreateAdress = lazy(() => import('../pages/Create/AddressCreate'));
+const ActionDriver = lazy(() => import('../pages/Create/DriverAction'));
+const Order = lazy(() => import('../pages/Create/OrderAction'));
+const createRestaurant = lazy(() => import('../pages/Create/RestaurantsCreate'));
 const DashChart = lazy(() => import('../pages/DashChart'));
-const RestaurantList = lazy(() => import('../pages/ListRestaurant'));
+const RestaurantList = lazy(() => import('../pages/List/ListRestaurant'));
+const MotorcycleAction = lazy(() => import('../pages/Create/MotorcycleAction'));
+const CustomerList = lazy(() => import('../pages/List/CustomerList'));
 const ProductCards = lazy(() => import('../pages/ProductCards'));
+const OrderList = lazy(() => import('../pages/List/OrderList'));
+const PhotoList = lazy(() => import('../pages/List/ListPhotos'));
 const MapTracking = lazy(() => import('../pages/TrackingPage'));
+const AdressAction = lazy(() => import('../pages/Create/AddressAction'));
+const MenuAction = lazy(() => import('../pages/Create/MenuAction'));
+const ProductAction = lazy(() => import('../pages/Create/ProductAction'));
 
 //const ListShift = lazy(() => import('../pages/ShiftList'));
 //const ListIssue = lazy(() => import('../pages/IssueList'));
@@ -26,10 +34,52 @@ const MapTracking = lazy(() => import('../pages/TrackingPage'));
 
 const coreRoutes = [
   {
+    path: '/action-motorcycle',
+    title: 'Motorcycle Action',
+    component: MotorcycleAction,
+  },
+  {
+    path: '/action-menu',
+    title: 'Menu Action',
+    component: MenuAction,
+  },
+  {
+    path: '/action-product',
+    title: 'Product Action',
+    component: ProductAction,
+  },
+  {
     path: '/list-restaurant',
     title: 'Restaurant List',
     component: ListRestaurant,
   },
+  {
+    path: '/action-adress',
+    title: 'Adress Action',
+    component: AdressAction,
+  },
+  {
+    path:"/action-driver",
+    title: "Create driver",
+    component:ActionDriver,
+  },
+  {
+    path: '/list-photo',
+    title: 'List Photos',
+    component: PhotoList,
+  },
+  
+  {
+    path: '/list-order',
+    title: 'Order List',
+    component: OrderList,
+  },
+  {
+    path: '/list-customer',
+    title: 'Customer List',
+    component: CustomerList,
+  },
+
   {
     path: '/list-orders',
     title: 'List Orders',
@@ -56,7 +106,7 @@ const coreRoutes = [
     component: ListDriver,
   },
   {
-    path: '/addresses',
+    path: '/list-address',
     title: 'Addresses lIst',
     component: ListAddress,
   },
@@ -86,7 +136,7 @@ const coreRoutes = [
     component: ListProduct,
   },
   {
-    path:"/create-restaurant",
+    path:"/action-restaurant",
     title: "Create Restaurant",
     component:createRestaurant,
   },

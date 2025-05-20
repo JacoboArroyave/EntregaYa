@@ -12,7 +12,6 @@ import {
   FaBoxOpen,
 } from 'react-icons/fa';
 
-
 interface SidebarProps {
   sidebarOpen: boolean;
 }
@@ -28,190 +27,137 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-50 flex h-screen w-72 flex-col overflow-y-hidden bg-orange-50 shadow-lg duration-300 ease-linear lg:static lg:translate-x-0 ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}
+      className={`fixed inset-y-0 left-0 z-50 h-screen w-72 flex-col overflow-y-auto bg-orange-50 shadow-lg transition-transform duration-300 ease-in-out
+      ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 flex`}
+      style={{ boxShadow: '2px 0 10px rgba(0,0,0,0.1)' }}
     >
       {/* Sidebar Header */}
-      <div className="flex items-center justify-between gap-2 px-6 py-6 bg-orange-100">
-        <NavLink to="/">
-          <h1 className="text-xl font-bold text-orange-600">(logo-pagina) </h1>
+      <div className="flex items-center justify-between gap-2 px-6 py-6 bg-orange-100 w-full">
+        <NavLink to="/" className="flex items-center gap-2">
+          <div className="flex items-center justify-center w-10 h-10 bg-orange-600 rounded-full">
+            <span className="text-white text-xl font-bold">D</span>
+          </div>
+          <span className="text-orange-600 text-lg font-bold">DeliveryYa</span>
         </NavLink>
       </div>
 
       {/* Sidebar Content */}
-      <div className="flex flex-col overflow-y-auto duration-300 ease-linear px-4 py-4">
-        <nav className="mt-2">
+      <div className="flex flex-col overflow-y-auto duration-300 ease-linear px-4 py-4 w-full">
+        <nav className="mt-2 w-full">
           <h3 className="mb-4 ml-2 text-sm font-semibold text-orange-500">
             MENÚ
           </h3>
-          <ul className="flex flex-col gap-2">
-            {/* Menu Item */}
-
-            {/* RESTAURANTES */}
+          <ul className="flex flex-col gap-2 w-full">
             <li>
               <NavLink
                 to="/list-restaurant"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-restaurant') ? 'bg-orange-300 text-white' : ''
-                }`}
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-restaurant') && 'bg-orange-100'
+                  }`}
               >
-                <FaUtensils className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Restaurants
+                <FaUtensils className="text-orange-600" />
+                Restaurantes
               </NavLink>
             </li>
-            {/* RESTAURANTES */}
-
-            {/* DRIVERS */}
             <li>
               <NavLink
                 to="/list-driver"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-driver') ? 'bg-orange-300 text-white' : ''
-                }`}
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-driver') && 'bg-orange-100'
+                  }`}
               >
-                <FaUserTie className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Drivers
+                <FaUserTie className="text-orange-600" />
+                Conductores
               </NavLink>
             </li>
-            {/* DRIVERS */}
-            
-            {/* MOTOS */}
+            <li>
+              <NavLink
+                to="/list-menu"
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-menu') && 'bg-orange-100'
+                  }`}
+              >
+                <MdRestaurantMenu className="text-orange-600" />
+                Menús
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 to="/list-motorcycle"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-motorcycle') ? 'bg-orange-300 text-white' : ''
-                }`}
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-motorcycle') && 'bg-orange-100'
+                  }`}
               >
-                <FaMotorcycle className="text-orange-500 group-hover:text-orange-800" size={20} />            
-                Motorcycles
+                <FaMotorcycle className="text-orange-600" />
+                Motocicletas
               </NavLink>
             </li>
-            {/* MOTOS */}
-            
-            {/* CUSTOMERS */}
             <li>
               <NavLink
-                to="/list-customers"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-customers') ? 'bg-orange-300 text-white' : ''
-                }`}
+                to="/list-product"
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-product') && 'bg-orange-100'
+                  }`}
               >
-                <FaUser className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Customers
+                <FaBoxOpen className="text-orange-600" />
+                Productos
               </NavLink>
             </li>
-            {/* CUSTOMERS */}
-
-            {/* ADDRESS */}
+            <li>
+              <NavLink
+                to="/list-customer"
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-customer') && 'bg-orange-100'
+                  }`}
+              >
+                <FaUser className="text-orange-600" />
+                Clientes
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/list-order"
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-order') && 'bg-orange-100'
+                  }`}
+              >
+                <FaClock className="text-orange-600" />
+                Pedidos
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 to="/list-address"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-address') ? 'bg-orange-300 text-white' : ''
-                }`}
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-address') && 'bg-orange-100'
+                  }`}
               >
-                <FaMapMarkerAlt className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Address
+                <FaMapMarkerAlt className="text-orange-600" />
+                Direcciones
               </NavLink>
             </li>
-            {/* ADDRESS */}
-
-            {/* ISSUES */}
             <li>
               <NavLink
-                to="/list-issues"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-issues') ? 'bg-orange-300 text-white' : ''
-                }`}
+                to="/list-photo"
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-photo') && 'bg-orange-100'
+                  }`}
               >
-                <FaExclamationCircle className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Issues
+                <MdPhotoCamera className="text-orange-600" />
+                Fotos
               </NavLink>
             </li>
-            {/* ISSUES */}
-
-            {/* SHIFTS */}
             <li>
               <NavLink
-                to="/list-shifts"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-shifts') ? 'bg-orange-300 text-white' : ''
-                }`}
+                to="/list-issue"
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/list-issue') && 'bg-orange-100'
+                  }`}
               >
-                <FaClock className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Shifts
+                <FaExclamationCircle className="text-orange-600" />
+                Problemas
               </NavLink>
             </li>
-            {/* SHIFTS */}
-
-            {/* PHOTOS */}
-            <li>
-              <NavLink
-                to="/list-photos"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-photos') ? 'bg-orange-300 text-white' : ''
-                }`}
-              >
-                <  MdPhotoCamera className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Photos
-              </NavLink>
-            </li>
-              
-            {/* ORDER */}
-            <li>
-              <NavLink
-                to="/list-orders"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-orders') ? 'bg-orange-300 text-white' : ''
-                }`}
-              >
-                <FaClipboardList className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Order
-              </NavLink>
-            </li>
-              
-            {/* MENU */}
-            <li>
-              <NavLink
-                to="/list-menus"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-menus') ? 'bg-orange-300 text-white' : ''
-                }`}
-              >
-                <MdRestaurantMenu className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Menu
-              </NavLink>
-            </li>
-              
-            {/* PRODUCT */}
-            <li>
-              <NavLink
-                to="/list-products"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('list-products') ? 'bg-orange-300 text-white' : ''
-                }`}
-              >
-                <FaBoxOpen className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Product
-              </NavLink>
-            </li>
-
-            {/* CHARTS */}
             <li>
               <NavLink
                 to="/charts"
-                className={`group flex items-center gap-3 rounded-md py-2 px-3 font-medium text-orange-700 transition-colors duration-200 hover:bg-orange-200 ${
-                  pathname.includes('charts') ? 'bg-orange-300 text-white' : ''
-                }`}
+                className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium duration-300 ease-in-out hover:bg-orange-100 ${pathname.includes('/charts') && 'bg-orange-100'
+                  }`}
               >
-                <FaBoxOpen className="text-orange-500 group-hover:text-orange-800" size={20} />
-                Charts
+                <FaClipboardList className="text-orange-600" />
+                Estadísticas
               </NavLink>
             </li>
-
-            {/* Menu Item */}
           </ul>
         </nav>
       </div>
