@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import React from 'react';
-import './index.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store'; // ⚠️ ajusta esta ruta a tu archivo real

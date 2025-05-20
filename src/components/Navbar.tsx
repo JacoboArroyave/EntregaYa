@@ -14,10 +14,10 @@ import {
 // const socket = io("http://127.0.0.1:8000");
 
 
-const Navbar = () => {
-  // const [notifications, setNotifications] = useState(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
+const Navbar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, setSidebarOpen: (open: boolean) => void }) => {
+  const [notifications, setNotifications] = useState(0);
+  const [currentLocation, setCurrentLocation] = useState("Seleccionar ubicación");
+
 
   // const [currentLocation, setCurrentLocation] = useState("Seleccionar ubicación");
 
@@ -36,134 +36,63 @@ const Navbar = () => {
 
 
 
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
-    <nav className="fixed top-0 right-0 left-72 bg-orange-600 shadow-md z-40">
+    <nav className="fixed top-0 right-0 left-0 lg:left-72 bg-orange-600 shadow-md z-40">
       <div className="px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo y nombre de la app */}
-          <div className="flex items-center">
-            <Truck className="h-7 w-7 text-white mr-1" />
-            <span className="text-white text-lg font-bold">DeliveryYa</span>
+          {/* Botón menú móvil */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 text-white"
+              aria-label="Toggle menú"
+            >
+              {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
-
 
           {/* Ubicación (escritorio) */}
           <div className="hidden md:flex items-center mx-4 flex-1">
             <div className="flex items-center text-white bg-orange-800 px-3 py-1 rounded-full max-w-xs">
-              <MapPin size={16} className="mr-1 flex-shrink-0" />
-              {/* <span className="text-sm truncate">{currentLocation}</span> */}
+              <MapPin size={16} className="mr-1" />
+              <span className="text-sm truncate">{currentLocation}</span>
+
             </div>
           </div>
 
-          {/* Enlaces de navegación (escritorio) */}
-          <div className="hidden md:block">
-            <div className="flex items-center space-x-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Iconos de carrito y notificaciones */}
-          <div className="flex items-center">
-            {/* Carrito */}
-            <a href="/carrito" className="p-2 text-white relative">
+          {/* Enlaces y notificaciones */}
+          <div className="flex items-center space-x-2">
+            <a href="/carrito" className="relative text-white p-2">
               <ShoppingBag size={20} />
-              <span className="absolute -top-1 -right-1 bg-yellow-400 text-orange-800 text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
-                3
-              </span>
+              <span className="absolute -top-1 -right-1 bg-yellow-400 text-orange-800 text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">3</span>
             </a>
 
-            {/* Notificaciones */}
-            <div className="relative mx-2">
-              {/* <button
-                onClick={clearNotifications}
-                className="p-2 text-white relative"
-                aria-label="Ver notificaciones"
-              >
-                <Bell size={20} />
-                {notifications > 0 && (
+            <button
+              onClick={clearNotifications}
+              className="relative text-white p-2"
+              aria-label="Ver notificaciones"
+            >
+              <Bell size={20} />
+              {notifications > 0 && (
+                <span className="absolute -top-1 -right-1 bg-yellow-400 text-orange-800 text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                  {notifications > 9 ? "9+" : notifications}
+                </span>
+              )}
+            </button>
 
-                  </span>
-                )}
+            <div className="ml-2">
+              <LogoutButton />
 
-                  
-              </button> */}
-
-              <div className="relative ml-2">
-                <button
-                  onClick={() => setShowDropdown(!showDropdown)}
-                  className="flex items-center focus:outline-none"
-                >
-                  <UserProfile />
-                </button>
-
-                {showDropdown && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-20">
-                    <div className="px-2 py-1">
-                      <LogoutButton />
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-            </div>
-
-            {/* Botón de menú móvil */}
-            <div className="md:hidden">
-              <button
-                onClick={toggleMobileMenu}
-                className="p-2 text-white"
-                aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-              >
-                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Menú móvil */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-orange-800">
-          {/* Ubicación móvil */}
-          <div className="px-4 py-2 flex items-center text-white border-b border-orange-600">
-            <MapPin size={16} className="mr-2" />
-            {/* <span className="text-sm truncate">{currentLocation}</span> */}
-          </div>
-
-          {/* Navegación móvil */}
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-white block px-3 py-2 rounded-md text-base hover:bg-orange-700"
-              >
-                {item.name}
-              </a>
-            ))}
-            <a
-              href="/carrito"
-              className="flex items-center text-white px-3 py-2 rounded-md text-base"
-            >
-
-              <ShoppingBag size={16} className="mr-2" />
-              Mi Carrito (3)
-            </a>
-          </div>
-        </div>
-      )}
     </nav>
   );
 };

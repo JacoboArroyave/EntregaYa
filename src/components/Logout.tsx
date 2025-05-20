@@ -16,6 +16,7 @@ const LogoutButton = () => {
   return (
     <button
       onClick={handleLogout}
+
       className="flex items-center gap-2 text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-4 py-2 rounded-lg text-sm shadow-md hover:shadow-lg transition-all duration-200"
     >
       <LogOut size={16} />
