@@ -22,6 +22,7 @@ interface ListProps {
   emptyMessage?: string;
   url?: string;
   showFollowOrder?: boolean;
+
 }
 
 const List: React.FC<ListProps> = ({
@@ -48,14 +49,14 @@ const List: React.FC<ListProps> = ({
   return (
     <div className="rounded-xl bg-white shadow-xl overflow-hidden border-0 relative">
       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-orange-400 to-yellow-400"></div>
-
       <div className={`px-8 py-5 ${headerGradient}`}>
         <div className="flex justify-between items-center">
           <h3 className="font-bold text-xl text-white tracking-wide flex items-center">
             {titulo}
           </h3>
-          <button
-            onClick={() => navigate(url, { state: { proceso } })}
+
+          {url && <button 
+            onClick={() => navigate(url, { state: {proceso} })}
             className="ml-4 bg-white text-red-600 rounded-full p-2 shadow-md hover:bg-red-100 transition"
             title="Agregar nuevo"
           >
@@ -72,7 +73,8 @@ const List: React.FC<ListProps> = ({
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               />
             </svg>
-          </button>
+          </button>}
+          
         </div>
       </div>
 

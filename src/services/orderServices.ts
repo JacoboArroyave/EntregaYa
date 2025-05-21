@@ -49,7 +49,7 @@ export const updateOrder = async (id: string, order: Partial<Order>): Promise<Or
 };
 
 // Eliminar una orden
-export const deleteOrder = async (id: string): Promise<boolean> => {
+export const deleteOrder = async (id: number): Promise<boolean> => {
     try {
         await api.delete(`${API_URL}/${id}`);
         return true;
