@@ -48,7 +48,7 @@ export const updatePhoto = async (id: string, photo: Partial<Photo>): Promise<Ph
 };
 
 // Eliminar una foto
-export const deletePhoto = async (id: string): Promise<boolean> => {
+export const deletePhoto = async (id: number): Promise<boolean> => {
     try {
         await api.delete(`${ENDPOINT}/${id}`);
         return true;

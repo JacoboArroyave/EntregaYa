@@ -8,8 +8,9 @@ const ListMenu = lazy(() => import('../pages/List/MenuList'));
 const ListMotorcycle = lazy(() => import('../pages/List/MotorcycleList'));
 const ListProduct = lazy(() => import('../pages/List/ProductList'));
 const ListAddress = lazy(() => import('../pages/List/ListAddress'));
-const ListOrders = lazy(() => import('../pages/List/ListOrders'));
+const ListOrders = lazy(() => import('../pages/List/OrderList'));
 const CreateAdress = lazy(() => import('../pages/Create/AddressCreate'));
+const PhotoAction = lazy(() => import('../pages/Create/PhotoAction'));
 const ActionDriver = lazy(() => import('../pages/Create/DriverAction'));
 const Order = lazy(() => import('../pages/Create/OrderAction'));
 const createRestaurant = lazy(() => import('../pages/Create/RestaurantsCreate'));
@@ -20,11 +21,13 @@ const CustomerList = lazy(() => import('../pages/List/CustomerList'));
 const ProductCards = lazy(() => import('../pages/ProductCards'));
 const OrderList = lazy(() => import('../pages/List/OrderList'));
 const PhotoList = lazy(() => import('../pages/List/ListPhotos'));
+const IssueList = lazy(() => import('../pages/List/IssuesList'));
 const OrderUpdate = lazy(() => import('../pages/Update/Order'));
 const MapTracking = lazy(() => import('../pages/TrackingPage'));
 const AdressAction = lazy(() => import('../pages/Create/AddressAction'));
 const MenuAction = lazy(() => import('../pages/Create/MenuAction'));
 const ProductAction = lazy(() => import('../pages/Create/ProductAction'));
+const IssueAction = lazy(() => import('../pages/Create/IssuesAction'));
 
 //const ListShift = lazy(() => import('../pages/ShiftList'));
 //const ListIssue = lazy(() => import('../pages/IssueList'));
@@ -38,6 +41,21 @@ const coreRoutes = [
     path: '/action-motorcycle',
     title: 'Motorcycle Action',
     component: MotorcycleAction,
+  },
+  {
+    path: '/action-Issues',
+    title: 'Issue Action',
+    component: IssueAction,
+  },
+  {
+    path: '/list-issue',
+    title: 'List issues',
+    component: IssueList,
+  },
+  {
+    path: '/action-photo',
+    title: 'Motorcycle Action',
+    component: PhotoAction,
   },
   {
     path: '/update-Order',

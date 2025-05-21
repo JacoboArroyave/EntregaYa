@@ -48,7 +48,7 @@ export const updateIssue = async (id: string, issue: Partial<Omit<Issue, "id">>)
 };
 
 // Eliminar un problema
-export const deleteIssue = async (id: string): Promise<boolean> => {
+export const deleteIssue = async (id: number): Promise<boolean> => {
     try {
         await api.delete(`${API_URL}/${id}`);
         return true;
