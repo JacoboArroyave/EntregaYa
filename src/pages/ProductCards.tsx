@@ -19,7 +19,7 @@ const ProductCards: React.FC = () => {
         const data = await getMenusByIdRestaurant(id);
         console.log("data", data);
         if (data.length==0) {
-          navigate("/")
+          navigate("/")   
           
         }
         const products = data.map((menu) => ({
@@ -35,6 +35,8 @@ const ProductCards: React.FC = () => {
 
   const handleClick = (item: Product & { menu_id?: number }) => {
     const menu_id = item.menu_id;
+    console.log(menu_id);
+    
     if (!menu_id ) {
       alert("Faltan datos");
       return;

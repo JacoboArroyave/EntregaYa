@@ -71,6 +71,8 @@ const ShiftAction = () => {
 
     const handleAction = async (values: any) => {
         try {
+            console.log(values);
+
             const shiftData = {
                 driver_id: values.driver_id,
                 motorcycle_id: values.motorcycle_id,
@@ -81,11 +83,8 @@ const ShiftAction = () => {
             const result: any = data
                 ? await updateShift(data.id, shiftData)
                 : await createShift(shiftData);
-            if (result?.id) {
-                navigate("/list-shifts");
-            } else {
-                alert("Error al guardar el turno");
-            }
+
+            navigate("/list-shifts");
         } catch (error) {
             console.error(error);
             alert("Error al guardar el turno");

@@ -74,7 +74,7 @@ const OrderCreate = () => {
         value: s.id,
         label: `${getDriverName(s.driver_id)} - ${getMotoName(
           s.motorcycle_id
-        )}`,
+        )}-${s.id}`,
       })),
     },
     {
@@ -101,13 +101,21 @@ const OrderCreate = () => {
   });
 
   const handleCreate = async (values: any) => {
-    const selectedShift = shifts.find((s) => s.id === values.shift_id);
+    const selectedShift = shifts.find((s) => s.id == values.shift_id);
+    
+    
+     
     const selectedMoto = motorcycles.find(
       (m) => m.id === selectedShift?.motorcycle_id
     );
+    console.log(values);
+    console.log(selectedShift);
+    
+    
     const plate = selectedMoto?.license_plate || "DESCONOCIDA";
     const motorcycle_id = selectedMoto?.id || "DESCONOCIDA";
-
+    console.log(selectedMoto);
+    
     const newOrder = {
       customer_id:values.customer_id,
       menu_id,
