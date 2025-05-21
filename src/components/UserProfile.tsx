@@ -5,6 +5,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
+    
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser({

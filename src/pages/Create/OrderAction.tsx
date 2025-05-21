@@ -7,30 +7,34 @@ import { getShifts } from "../../services/shiftService";
 import { getDrivers } from "../../services/driverService";
 import { getMotorcycles } from "../../services/motorcycleService";
 import { createOrder } from "../../services/orderServices";
+import { getCustomers } from "../../services/customerServices";
 
 const OrderCreate = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   // Recibimos datos enviados por location.state
-  const { menu_id, customer_id, precio_product} = location.state || {};
+  const { menu_id,  precio_product} = location.state || {};
 
   // Estados para datos de turnos, conductores y motos
   const [shifts, setShifts] = useState<any[]>([]);
   const [drivers, setDrivers] = useState<any[]>([]);
   const [motorcycles, setMotorcycles] = useState<any[]>([]);
+  const [customers, setCustomers] = useState<any[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [shiftsData, driversData, motorcyclesData] = await Promise.all([
+        const [shiftsData, driversData, motorcyclesData,customersData] = await Promise.all([
           getShifts(),
           getDrivers(),
           getMotorcycles(),
+          getCustomers()
         ]);
         setShifts(shiftsData);
         setDrivers(driversData);
         setMotorcycles(motorcyclesData);
+        setCustomers(customersData)
       } catch (error) {
         console.error("Error cargando datos:", error);
       }
@@ -38,7 +42,7 @@ const OrderCreate = () => {
     fetchData();
   }, []);
 
-  if (!menu_id || !customer_id || !precio_product) {
+  if (!menu_id  || !precio_product) {
     return <p>Faltan datos para crear la orden.</p>;
   }
 
@@ -48,6 +52,10 @@ const OrderCreate = () => {
 
   const getDriverName = (id: number) => {
     const d = drivers.find((drv) => drv.id === id);
+    return d?.name || "Desconocido";
+  };
+  const getCustomerName = (id: number) => {
+    const d = customers.find((drv) => drv.id === id);
     return d?.name || "Desconocido";
   };
 
@@ -69,16 +77,27 @@ const OrderCreate = () => {
         )}`,
       })),
     },
+    {
+      for: "customer_id",
+      text: "customer",
+      type: "select",
+      options: customers.map((s) => ({
+        value: s.id,
+        label: getCustomerName(s.id),
+      })),
+    },
   ];
 
   const initialValuesProps = {
     quantity: 1,
     shift_id: shifts[0].id,
+    customer_id: customers[0].id,
   };
 
   const validationSchema = Yup.object({
     quantity: Yup.number().min(1, "Debe ser mayor a 0").required("Requerido"),
     shift_id: Yup.number().required("Selecciona un turno"),
+    customer_id: Yup.number().required("Selecciona un turno"),
   });
 
   const handleCreate = async (values: any) => {
@@ -90,12 +109,12 @@ const OrderCreate = () => {
     const motorcycle_id = selectedMoto?.id || "DESCONOCIDA";
 
     const newOrder = {
-      customer_id,
+      customer_id:values.customer_id,
       menu_id,
       quantity: values.quantity,
       totalPrice: values.quantity * precio_product,
       status: "pendiente",
-      // shift_id: values.shift_id,
+      shift_id: values.shift_id,
       motorcycle_id,
     };
 

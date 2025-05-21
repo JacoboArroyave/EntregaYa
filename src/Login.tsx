@@ -50,18 +50,7 @@ const Login = () => {
         const decoded = jwtDecode<any>(credential);
 
         if (allowedEmails.includes(decoded.email)) {
-          let customer: any = await getCustomerByEmail(decoded.email);
-
-          if (!customer) {
-            customer = await createCustomer({
-              email: decoded.email,
-              name: decoded.name,
-              phone: "123",
-            });
-            customer = customer[0]; // Asumiendo que createCustomer devuelve un array
-          }
-
-          store.dispatch(setCustomer(customer));
+          
 
           localStorage.setItem('google_token', credential);
           // localStorage.setItem('user', JSON.stringify(decoded));
@@ -69,7 +58,6 @@ const Login = () => {
 
           // Guardar en localStorage
           localStorage.setItem('user', JSON.stringify(decoded));
-          localStorage.setItem('customer', JSON.stringify(customer));
           localStorage.setItem('google_token', credential);
 
           navigate("/");

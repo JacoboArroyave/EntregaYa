@@ -20,6 +20,7 @@ const MotorcycleAction = lazy(() => import('../pages/Create/MotorcycleAction'));
 const CustomerList = lazy(() => import('../pages/List/CustomerList'));
 const ProductCards = lazy(() => import('../pages/ProductCards'));
 const OrderList = lazy(() => import('../pages/List/OrderList'));
+const ShiftList = lazy(() => import('../pages/List/ShiftsList'));
 const PhotoList = lazy(() => import('../pages/List/ListPhotos'));
 const IssueList = lazy(() => import('../pages/List/IssuesList'));
 const OrderUpdate = lazy(() => import('../pages/Update/Order'));
@@ -28,6 +29,7 @@ const AdressAction = lazy(() => import('../pages/Create/AddressAction'));
 const MenuAction = lazy(() => import('../pages/Create/MenuAction'));
 const ProductAction = lazy(() => import('../pages/Create/ProductAction'));
 const IssueAction = lazy(() => import('../pages/Create/IssuesAction'));
+const ShiftAction = lazy(() => import('../pages/Create/ShiftAction'));
 
 //const ListShift = lazy(() => import('../pages/ShiftList'));
 //const ListIssue = lazy(() => import('../pages/IssueList'));
@@ -43,6 +45,11 @@ const coreRoutes = [
     component: MotorcycleAction,
   },
   {
+    path: '/action-shift',
+    title: 'shift Action',
+    component: ShiftAction,
+  },
+  {
     path: '/action-Issues',
     title: 'Issue Action',
     component: IssueAction,
@@ -51,6 +58,11 @@ const coreRoutes = [
     path: '/list-issue',
     title: 'List issues',
     component: IssueList,
+  },
+  {
+    path: '/list-shifts',
+    title: 'List shift',
+    component: ShiftList,
   },
   {
     path: '/action-photo',

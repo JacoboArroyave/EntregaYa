@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../src/store/store";
 import {
   FaUtensils, FaClock, FaUserTie, FaMotorcycle, FaUser,
-  FaExclamationCircle, FaMapMarkerAlt, FaClipboardList, FaBoxOpen
+  FaExclamationCircle, FaMapMarkerAlt, FaClipboardList, FaBoxOpen, FaRegCalendarCheck
 } from 'react-icons/fa';
 import { MdPhotoCamera, MdRestaurantMenu } from 'react-icons/md';
 
@@ -52,6 +52,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             { to: "/list-address", label: "Direcciones", icon: <FaMapMarkerAlt /> },
             { to: "/list-photo", label: "Fotos", icon: <MdPhotoCamera /> },
             { to: "/list-issue", label: "Problemas", icon: <FaExclamationCircle /> },
+            { to: "/list-shifts", label: "Turnos", icon: <FaRegCalendarCheck /> }, // Nuevo enlace para Turnos
             { to: "/charts", label: "Estadísticas", icon: <FaClipboardList /> },
           ].map(({ to, label, icon }) => (
             <li key={to}>

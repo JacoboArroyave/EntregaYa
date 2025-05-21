@@ -56,7 +56,7 @@ const TrackingMap: React.FC<{ plate: string }> = ({ plate }) => {
           <Marker
             position={position}
             icon={L.icon({
-              iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+              iconUrl: "https://cdn-icons-png.flaticon.com/512/3721/3721619.png",
               iconSize: [32, 32],
             })}
           >

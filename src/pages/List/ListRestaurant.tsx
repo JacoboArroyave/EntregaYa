@@ -23,6 +23,7 @@ const ListRestaurant: React.FC = () => {
         navigate(`/products/${item.id}`);
         
         
+        
     }
     return (
         <Cards

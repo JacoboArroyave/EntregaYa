@@ -3,12 +3,6 @@ import io from "socket.io-client";
 import LogoutButton from "./Logout";
 import UserProfile from "./UserProfile";
 import { Bell, Menu, X, ShoppingBag, MapPin, Truck } from "lucide-react";
-import {
-  User,
-  BookUser,
-  Settings,
-  LogOut,
-} from "lucide-react";
 
 // Conexión al socket
 // const socket = io("http://127.0.0.1:8000");
@@ -17,7 +11,7 @@ import {
 const Navbar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, setSidebarOpen: (open: boolean) => void }) => {
   const [notifications, setNotifications] = useState(0);
   const [currentLocation, setCurrentLocation] = useState("Seleccionar ubicación");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const [showDropdown, setShowDropdown] = useState(false);
 
   // const [currentLocation, setCurrentLocation] = useState("Seleccionar ubicación");
 
@@ -83,10 +77,22 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean, setSide
               )}
             </button>
 
-            <div className="ml-2">
-              <LogoutButton />
+             <div className="relative ml-2">
+                <button
+                  onClick={() => setShowDropdown(!showDropdown)}
+                  className="flex items-center focus:outline-none"
+                >
+                  <UserProfile />
+                </button>
 
-            </div>
+                {showDropdown && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-20">
+                    <div className="px-2 py-1">
+                      <LogoutButton />
+                    </div>
+                  </div>
+                )}
+              </div>
           </div>
         </div>
       </div>

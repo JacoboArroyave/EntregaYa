@@ -11,15 +11,17 @@ const ProductCards: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const customer = useSelector((state: any) => state.customer.customer);
-  const customer_id = customer?.id;
+
 
   useEffect(() => {
     const fetchMenuByIdRestaurant = async () => {
       if (id !== undefined) {
         const data = await getMenusByIdRestaurant(id);
         console.log("data", data);
-
+        if (data.length==0) {
+          navigate("/")
+          
+        }
         const products = data.map((menu) => ({
           ...menu.product, // copia todas las propiedades del producto
           menu_id: menu.id, // añade el id del menú para que quede ligado al producto
@@ -33,7 +35,7 @@ const ProductCards: React.FC = () => {
 
   const handleClick = (item: Product & { menu_id?: number }) => {
     const menu_id = item.menu_id;
-    if (!menu_id || !customer_id) {
+    if (!menu_id ) {
       alert("Faltan datos");
       return;
     }
@@ -43,7 +45,7 @@ const ProductCards: React.FC = () => {
     navigate("/order/create", {
       state: {
         menu_id,
-        customer_id,
+        
         precio_product: item.price, // aquí asumo que el producto tiene un campo price
       },
     });

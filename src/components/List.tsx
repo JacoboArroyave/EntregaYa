@@ -59,7 +59,7 @@ const List: React.FC<ListProps> = ({
             <thead>
               <tr className="bg-gradient-to-r from-amber-100/90 to-amber-50 text-amber-900 uppercase text-xs tracking-wider">
                 {columnas.map((item) => (
-                  <th key={item.name} className="px-6 py-4 font-semibold text-left">{item.text}</th>
+                  <th key={item.text} className="px-6 py-4 font-semibold text-left">{item.text}</th>
                 ))}
                 {acciones.length > 0 && (
                   <th className="px-6 py-4 font-semibold text-center">ACCIONES</th>
@@ -78,7 +78,7 @@ const List: React.FC<ListProps> = ({
                   onMouseLeave={() => setHoveredRow(null)}
                 >
                   {columnas.map((col) => (
-                    <td key={col.name} className="px-6 py-4 whitespace-nowrap">
+                    <td key={col.text} className="px-6 py-4 whitespace-nowrap">
                       {col.type === "image" ? (
                         <div className="p-1 bg-gradient-to-br from-yellow-200 to-amber-300 rounded-full inline-block">
                           <img
@@ -182,7 +182,7 @@ const List: React.FC<ListProps> = ({
             {/* Atributos */}
             <div className="space-y-1">
               {columnas.map((col) => (
-                <div key={col.name} className="flex justify-between">
+                <div key={col.text} className="flex justify-between">
                   <span className="font-medium text-orange-600">{col.text}:</span>
                   <span className="text-gray-700">
                     {col.type === "image" ? (

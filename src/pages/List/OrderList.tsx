@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import List from "../../components/List";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2, Truck } from "lucide-react";
 import { deleteOrder, getOrders } from "../../services/orderServices";
 import { Order } from "../../models/Order";
 import { getMotorcycleById } from "../../services/motorcycleService";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const DriverList: React.FC = () => {
+const OrderList: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
 
   const navigate = useNavigate();
@@ -38,6 +38,7 @@ const DriverList: React.FC = () => {
   const acciones = [
     { nombre: "editar", etiqueta: "Editar", icon: Edit },
     { nombre: "eliminar", etiqueta: "Eliminar", icon: Trash2 },
+    { nombre: "seguir-pedido", etiqueta: "Seguir Pedido", icon: Truck },
   ];
 
   const handleAccion = async (accion: string, data: Order) => {
@@ -60,7 +61,28 @@ const DriverList: React.FC = () => {
         })
         window.location.reload();
       }
+    } else if (accion === "seguir-pedido") {
+      console.log("Seguir pedido:", data);
+
+      if (data.motorcycle_id) {
+        const moto = await getMotorcycleById(data.motorcycle_id);
+        console.log(moto);
+        
+        if (moto) {
+          const plate = moto.license_plate;
+          navigate("/MapTracking", {
+            state: {
+              plate: plate,
+            },
+          });
+        } else {
+          alert("Hubo un error al obtener la información de la moto.");
+        }
+      } else {
+        alert("Este pedido no tiene moto asignada.");
+      }
     }
+
   };
 
   return (
@@ -74,4 +96,4 @@ const DriverList: React.FC = () => {
   );
 };
 
-export default DriverList;
+export default OrderList;
