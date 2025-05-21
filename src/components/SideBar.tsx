@@ -7,6 +7,8 @@ import {
   FaExclamationCircle, FaMapMarkerAlt, FaClipboardList, FaBoxOpen, FaRegCalendarCheck
 } from 'react-icons/fa';
 import { MdPhotoCamera, MdRestaurantMenu } from 'react-icons/md';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -29,17 +31,29 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       style={{ boxShadow: '2px 0 10px rgba(0,0,0,0.1)' }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-6 bg-orange-100">
-        <NavLink to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-orange-600 text-white flex items-center justify-center rounded-full text-xl font-bold">D</div>
+      <div className="flex items-center justify-between px-16 py-6 bg-orange-100">
+        <NavLink
+          to="/"
+          className="flex flex-col items-center gap-1 transform translate-x-6"
+        >
+          {/* Icono del logo */}
+          <img src="/logo.png" alt="Logo" className="w-19 h-10" />
+
+          {/* Título debajo del logo */}
           <span className="text-orange-600 text-lg font-bold">EntregaYa</span>
         </NavLink>
-        <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-orange-600 text-xl font-bold">&times;</button>
+
+        <button
+          onClick={() => setSidebarOpen(false)}
+          className="lg:hidden text-orange-600 text-3xl font-bold"
+        >
+          &times;
+        </button>
       </div>
 
       {/* Links */}
       <nav className="px-4 py-4">
-        <h3 className="mb-4 ml-2 text-sm font-semibold text-orange-500">MENÚ</h3>
+        <h3 className="mb-4 ml-2 text-sm font-semibold text-orange-500">Secciones</h3>
         <ul className="space-y-2">
           {[
             { to: "/list-restaurant", label: "Restaurantes", icon: <FaUtensils /> },
@@ -52,8 +66,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             { to: "/list-address", label: "Direcciones", icon: <FaMapMarkerAlt /> },
             { to: "/list-photo", label: "Fotos", icon: <MdPhotoCamera /> },
             { to: "/list-issue", label: "Problemas", icon: <FaExclamationCircle /> },
-            { to: "/list-shifts", label: "Turnos", icon: <FaRegCalendarCheck /> }, // Nuevo enlace para Turnos
+            { to: "/list-shifts", label: "Turnos", icon: <FaRegCalendarCheck /> },
             { to: "/charts", label: "Estadísticas", icon: <FaClipboardList /> },
+            { to: "/list-motorcycle-infringement", label: "Infracciones", icon: <FaClipboardList /> },
+            { to: "/create-infraccion", label: "Crear Infracción", icon: <FaExclamationCircle /> },
           ].map(({ to, label, icon }) => (
             <li key={to}>
               <NavLink

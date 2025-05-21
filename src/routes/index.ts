@@ -30,19 +30,24 @@ const MenuAction = lazy(() => import('../pages/Create/MenuAction'));
 const ProductAction = lazy(() => import('../pages/Create/ProductAction'));
 const IssueAction = lazy(() => import('../pages/Create/IssuesAction'));
 const ShiftAction = lazy(() => import('../pages/Create/ShiftAction'));
-
-//const ListShift = lazy(() => import('../pages/ShiftList'));
-//const ListIssue = lazy(() => import('../pages/IssueList'));
-//const ListPhoto = lazy(() => import('../pages/PhotoList'));
-//const ListCustomer = lazy(() => import('../pages/CustomerList'));
-//const ListOrder = lazy(() => import('../pages/OrderList'));
-//const ListAddress = lazy(() => import('../pages/AddressList'));
+const ListMotorcycleInfringement = lazy(() => import('../pages/List/MotorcycleInfringementList'));
+const CreateInfraccionPage = lazy(() => import('../pages/CreateInfraccionPage'));
 
 const coreRoutes = [
+  {
+    path: '/create-infraccion',
+    title: 'Crear Infracción',
+    component: CreateInfraccionPage,
+  },
   {
     path: '/action-motorcycle',
     title: 'Motorcycle Action',
     component: MotorcycleAction,
+  },
+  {
+    path: "/list-motorcycle-infringement",
+    title: "Infracciones de Motocicletas",
+    component: ListMotorcycleInfringement,
   },
   {
     path: '/action-shift',
@@ -95,16 +100,16 @@ const coreRoutes = [
     component: AdressAction,
   },
   {
-    path:"/action-driver",
+    path: "/action-driver",
     title: "Create driver",
-    component:ActionDriver,
+    component: ActionDriver,
   },
   {
     path: '/list-photo',
     title: 'List Photos',
     component: PhotoList,
   },
-  
+
   {
     path: '/list-order',
     title: 'Order List',
@@ -114,6 +119,11 @@ const coreRoutes = [
     path: '/list-customer',
     title: 'Customer List',
     component: CustomerList,
+  },
+  {
+    path: "/list-motorcycle-infringement",
+    title: "Infracciones de Motocicletas",
+    component: ListMotorcycleInfringement,
   },
 
   {
@@ -172,14 +182,14 @@ const coreRoutes = [
     component: ListProduct,
   },
   {
-    path:"/action-restaurant",
+    path: "/action-restaurant",
     title: "Create Restaurant",
-    component:createRestaurant,
+    component: createRestaurant,
   },
   {
-    path:"/MapTracking",
+    path: "/MapTracking",
     title: "Map Tracking",
-    component:MapTracking,
+    component: MapTracking,
   },
 ];
 

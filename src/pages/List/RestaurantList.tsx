@@ -66,7 +66,7 @@ const RestaurantList: React.FC = () => {
       columnas={columnas}
       acciones={acciones}
       onAccion={handleAccion}
-      url="/action"
+      url="/action-restaurant"
     />
   );
 };
